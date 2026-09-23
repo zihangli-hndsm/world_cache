@@ -12,6 +12,20 @@ outputs/plots/*
 outputs/tables/*
 outputs/reports/environment_report.txt
 outputs/reports/latest_session_start.txt
+
+# Keep only the review-date handoff and the figure source used by the paper;
+# historical experiment reports, bundles, and environment snapshots stay out
+# of the working tree and release snapshots.
+outputs/reports/*
+!outputs/reports/.gitkeep
+!outputs/reports/20260923_review_update.md
+!outputs/reports/20260923_review_figures/
+!outputs/reports/20260923_review_figures/**
+
+# LaTeX build products are reproducible and should not enter source commits.
+paper/*.aux
+paper/*.log
+paper/*.out
 outputs/day1_alignment_examples/
 data/
 checkpoints/

@@ -1,0 +1,11 @@
+seed: 0
+dataset:
+  root: ${oc.env:REPLICACAD_ROOT}
+  scene_dataset_config: ${oc.env:REPLICACAD_ROOT}/replicaCAD.scene_dataset_config.json
+  scene: ${oc.env:REPLICACAD_ROOT}/configs/scenes/apt_1.scene_instance.json
+  pairs: 10
+model:
+  name: vit_base_patch14_dinov2.lvd142m
+  resolution: 224
+  frozen: true
+output_root: outputs/runs

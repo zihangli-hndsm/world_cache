@@ -1,0 +1,367 @@
+\documentclass[10pt,twocolumn]{article}
+
+\usepackage[margin=0.72in]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{microtype}
+\usepackage{hyperref}
+
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\title{Supplementary Material: Selective Multi-Scale Transformer Correspondence}
+\author{Anonymous Authors}
+\date{}
+
+\begin{document}
+\maketitle
+
+This supplement provides the complete per-pair audit and the source-only
+empirical gate details for the 17-pair annotated subset. All candidate selection
+and spatial consensus decisions are made without the hidden 3RScan alignment;
+matching uses every depth-valid sampled point, rescan observations are stored
+in native scan coordinates, and annotation labels are used only for post-hoc
+scoring and pose evaluation.
+
+\section{Full per-pair audit}
+
+The main paper reports weighted aggregates over 16 source pairs and one
+held-out target. Table~\ref{tab:pairs} exposes every pair. ``Sem.'' is semantic
+precision among consensus inliers. The pose column uses the strict
+$5^\circ/0.25$~m gate.
+
+\begin{table*}[t]
+\centering
+\small
+\resizebox{\textwidth}{!}{\input{generated_pair_table.tex}}
+\caption{Complete ViT-G/14 per-pair audit with $K=20$, $\tau=0.10$~m, and
+1,500 RANSAC iterations. $Q$ is the number of valid query patches and Inl. is
+the number retained by spatial consensus.}
+\label{tab:pairs}
+\end{table*}
+
+The result is heterogeneous by construction. 4aca and 95be have near-zero
+retained semantic accuracy, but for different reasons: 4aca usually lacks a correct
+semantic candidate, whereas 95be often contains one but fails to recover it
+with consensus. 20c993 and pair07 have high retained semantic accuracy but very large
+pose error. The single strict source pose success is chairs, while the target
+is reported separately as a held-out point estimate.
+
+\section{Candidate-set availability audit}
+
+The evaluator optionally records whether any of the top-20 descriptor
+candidates has the query's semantic or instance label. These fields are
+computed only after candidate construction and consensus, using annotations
+for audit purposes; they do not affect descriptor ranking, RANSAC, or the
+reported clean metrics. A correct semantic candidate is available for 79.7\%
+of source queries and 96.6\% of target queries. Only 25.8\% and 63.6\%,
+respectively, become correct semantic inliers; conditional recovery given a
+candidate hit is 32.4\% on source and 65.8\% on target.
+
+The pair-level contrast is more informative than the aggregate. For 4aca,
+semantic candidate recall is 19.5\% and correct-inlier coverage is 0.0\%;
+this is a genuine candidate-set omission. For 95be, semantic candidate recall
+is 69.2\%, but only 1.0\% of candidate-hit queries become correct inliers,
+indicating wrong-consensus/pose selection rather than simple absence of the
+label. The audit also records 208 geometric inliers for 4aca whose candidate
+sets contain no correct semantic label, making explicit that a spatially
+coherent hypothesis is not automatically semantically valid.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\resizebox{\columnwidth}{!}{\input{generated_candidate_set_audit_table.tex}}
+\caption{Post-hoc candidate-set availability audit at $K=20$. ``Recovery'' is
+the fraction of queries with a correct semantic candidate that become correct
+semantic inliers. Miss inliers are geometric inliers with no correct semantic
+candidate in their top-20 set.}
+\label{tab:candidate-audit}
+\end{table}
+
+\section{Backbone scale control}
+
+The clean scale control uses the same depth-valid matching protocol, spatial
+consensus threshold, and RANSAC budget for ViT-L/14 and ViT-G/14. Table~\ref{tab:scale}
+reports the original 14-pair matched subset (13 source pairs plus the target)
+and the target separately. ViT-G gives a higher retained semantic-accuracy
+point estimate on the matched subset while the pose gate remains sparse, but
+the audit does not isolate a pre-consensus candidate-layer effect. A
+pair-bootstrap audit gives
+a +1.8 percentage-point weighted semantic difference with a 95\% interval of
+$[-0.4,+5.3]$ points; the source-only 13-pair difference is +1.9 points with
+$[-0.6,+5.9]$. Both intervals include zero, so the scale-up result is
+descriptive rather than a claim of statistically established superiority.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\resizebox{\columnwidth}{!}{\input{generated_scale_table.tex}}
+\caption{Clean ViT-L/14 to ViT-G/14 scale control.}
+\label{tab:scale}
+\end{table}
+
+\section{Top-K sensitivity}
+
+We rerun the complete clean protocol over $K\in\{1,5,10,20,50\}$, keeping
+the ViT-G blocks $(2,20,40)$, the $0.10$~m consensus threshold, the RANSAC
+budget, and the source/target split fixed. The sweep is an audit of the fixed
+$K=20$ operating point; no target result is used to choose $K$. On the source
+pairs, $K=1$ has the highest weighted retained semantic accuracy but only 11.2\%
+coverage. Among settings retaining at least 20\% weighted source coverage,
+$K=10$ is the most precise (89.3\%), while $K=20$ gives the larger
+coverage-oriented operating point used in the main paper (30.4\%). The
+held-out target follows the same qualitative pattern up to $K=20$; widening
+to $K=50$ reduces retained semantic accuracy and loses the strict pose gate.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\resizebox{\columnwidth}{!}{\input{generated_k_sweep_table.tex}}
+\caption{Clean top-$K$ sensitivity. Source metrics are weighted over 16
+pairs; target metrics are the held-out point estimate.}
+\label{tab:k-sweep}
+\end{table}
+
+\section{RANSAC seed sensitivity}
+
+The primary tables fix RANSAC seed 17 for exact reproducibility. To measure
+stochastic sensitivity without changing descriptors, candidates, threshold, or
+iteration budget, we rerun every pair with seeds 17, 29, and 41. The held-out
+target is stable: retained semantic accuracy ranges from 93.1\% to 93.5\% and
+coverage from 67.6\% to 68.2\%. The source aggregate is more sensitive,
+ranging from 83.1\% to 88.0\% retained semantic accuracy at 30.3--30.8\% coverage;
+the variation is concentrated in wrong-pose pairs 95be, pair04, and pair06.
+Thus spatial consensus is a selective verifier, not a deterministic global-pose
+estimator on the hard source pairs. No seed was selected using target labels.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\resizebox{\columnwidth}{!}{\input{generated_seed_sweep_table.tex}}
+\caption{RANSAC seed sensitivity with fixed candidates and budget.}
+\label{tab:seed-sweep}
+\end{table}
+
+\section{Descriptor-permutation negative control}
+
+To test whether spatial consensus alone could explain the semantic result, we
+repeat the exact ViT-G protocol after randomly permuting the reference
+descriptor rows while leaving reference points, labels, query points, $K=20$,
+the $0.10$~m threshold, and the 1,500-iteration budget unchanged. The
+permutation is fixed with seed 17 and is applied before candidate construction;
+it is not used to tune any threshold. Table~\ref{tab:negative-control} shows
+that the source aggregate falls to 46.3\% retained semantic accuracy at 10.5\%
+coverage, with no strict pose success. On the held-out target, coverage and
+retained semantic accuracy fall to 7.9\% and 3.6\%, respectively, with a
+$162.2^\circ$ rotation error. This negative control supports the claim that
+the normal result depends on descriptor--point identity rather than on the
+RANSAC verifier alone; the residual semantic floor on source pairs reflects
+category-level coincidences, not successful correspondence.
+At the paired scene level, normal matching is better on 15/16 pairs for both
+coverage and retained semantic accuracy; the macro semantic gap is 38.9 percentage
+points (76.3\% versus 37.4\%).
+
+\begin{table}[t]
+\centering
+\scriptsize
+\resizebox{\columnwidth}{!}{\input{generated_negative_control_table.tex}}
+\caption{Descriptor-permutation negative control.}
+\label{tab:negative-control}
+\end{table}
+
+\section{Frame-level selection}
+
+We separately test whether a lightweight frame-level confidence rule transfers
+across scenes. On the 16 source pairs, we select the feature/filter pair by
+macro retained semantic accuracy subject to 5\% minimum coverage, and repeat the
+selection in leave-one-pair-out folds. The source-only winner is concatenated
+ViT-G layers $(2,20,40)$ with reciprocal matching and a top-1/top-2 margin of
+0.02; it is selected in 13/16 folds. We apply this fixed choice once to the
+held-out target without using target labels for selection. This is a retrieval
+confidence ablation, distinct from the main spatial-consensus result.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\resizebox{\columnwidth}{!}{\input{generated_framelevel_table.tex}}
+\caption{Source-only frame-level confidence selection. The target row uses the
+configuration selected on source pairs only.}
+\label{tab:framelevel}
+\end{table}
+
+\section{Source-only empirical gate fitting}
+
+The residual selector is fit on all 16 source pairs at a requested 90\%
+retained semantic-accuracy target, then applied once to the target. We call
+this an empirical source-fit gate rather than a calibration guarantee.
+Table~\ref{tab:calibration} also reports representative leave-one-pair-out
+(LOO) fits. LOO thresholds are
+fit without the listed pair, and the reported coverage and precision are on the
+held-out pair.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\resizebox{\columnwidth}{!}{\input{generated_calibration_table.tex}}
+\caption{Empirical source-fit residual gate. The all-source row is evaluated on the target;
+LOO rows are evaluated on the held-out source pair.}
+\label{tab:calibration}
+\end{table}
+
+The all-source fit retains 236 of 1,069 target queries (22.1\%) at 96.6\%
+retained semantic accuracy. LOO gate fitting exposes the limitation of residual-only
+selection: held-out 4aca and 95be reach only 0.0\% and 10.0\% retained
+semantic accuracy, respectively. The candidate audit above shows that 4aca is
+candidate-set limited, while 95be has substantial candidate availability but
+fails consensus recovery; neither is fixed by a threshold choice. Cross-fitted
+LOO pooling retains 1,364/15,048 source queries (9.1\%) at 76.6\% retained
+semantic accuracy; only 13/16 folds have a 95\% threshold, pooling 115 queries
+at 85.2\% accuracy. This is a transfer audit, not a universal guarantee. The
+threshold search scans residual prefixes and uses a one-sided empirical target;
+it does not provide a family-wise finite-sample guarantee.
+
+The 0.03304~m source-fit threshold retains 6.1\% of source queries with 91.7\%
+observed accuracy and 14.1\% of target queries at 98.7\% accuracy and
+97.1\% semantic mIoU (Table~\ref{tab:risk-controlled}). However, the threshold
+was selected after scanning 14,949 residual prefixes, so its raw 90.1\%
+Clopper--Pearson lower bound is descriptive rather than family-wise valid. A
+Bonferroni correction over all prefixes produces no threshold satisfying a 90\%
+bound; the maximum adjusted lower bound is 87.4\%. For an auditable fixed
+point, a 0.02~m gate gives an unadjusted 90.9\% source lower bound at 1.9\%
+source coverage, and 3.3\% target coverage at 100\% retained semantic accuracy. Since
+this fixed point is also chosen retrospectively, it is an audit diagnostic,
+not a family-wise guarantee. The pair-bootstrap intervals and LOO failures
+remain the relevant evidence about scene heterogeneity.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\resizebox{\columnwidth}{!}{\input{generated_risk_controlled_table.tex}}
+\caption{Residual operating points. The source-fit row reports a raw
+post-selection lower bound; the fixed 2~cm row reports an unadjusted
+fixed-threshold query-level LCB. Neither is a family-wise guarantee after
+retrospective threshold inspection.}
+\label{tab:risk-controlled}
+\end{table}
+
+\section{Cross-scan label transfer}
+
+Table~\ref{tab:transfer-supp} reports the complete transfer table, including
+micro accuracy in the underlying CSV and class-balanced mIoU in the table.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\resizebox{\columnwidth}{!}{\input{generated_transfer_table.tex}}
+\caption{Cross-scan semantic and instance label transfer. The reported mIoU is
+conditional and class-balanced over retained query patches; coverage is the
+fraction of valid query patches retained by the selector.}
+\label{tab:transfer-supp}
+\end{table}
+
+At the target, consensus reaches 85.5\% conditional semantic mIoU at 68.0\% coverage.
+The source-fit selector reaches 89.5\% semantic and 90.7\% instance
+mIoU at 22.1\% coverage. The source rows are retained to show that this utility
+is not uniform across the heterogeneous scene pool.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\resizebox{\columnwidth}{!}{\input{generated_abstention_miou_table.tex}}
+\caption{Fixed-query, abstention-aware mIoU. The semantic and instance label
+universes are fixed from all non-zero query labels in each split; a rejected
+query predicts void and contributes a false negative, while zero-union classes
+receive IoU zero.}
+\label{tab:abstention-miou}
+\end{table}
+
+The conditional and abstention-aware numbers answer different questions. For
+example, the source-fit gate has 61.2\% pooled conditional semantic mIoU but
+only 4.1\% when rejected queries are counted as false negatives; the latter is
+the appropriate full-query utility diagnostic for a selective system.
+
+As a data-quality check, an annotation-projection audit over all 32,835 sampled
+points finds a 2.74~cm median nearest-mesh distance, a 6.37~cm 95th percentile,
+and a 99.85\% non-zero label rate. Only 0.31\% of samples are farther than
+0.30~m; these points are retained rather than silently filtered. The complete
+per-side audit is included with the released diagnostics.
+
+\section{Learned geometry control}
+
+To complement the classical FPFH control, we evaluate the published FCGF
+3DMatch checkpoint with the maintained WarpConvNet adapter. This is a
+geometry-only learned baseline: it receives the sampled 3-D points and no RGB
+tokens. We use the same 14-pixel sampling, $K=20$, $0.10$~m spatial-consensus
+threshold, and hidden alignment only for evaluation. The 0.025~m voxel size is
+the FCGF extraction setting. Across all 17 pairs, top-20 FCGF reaches 18.7\%
+weighted coverage and 53.3\% weighted retained semantic accuracy, with 0/17 strict
+pose successes. The per-pair breakdown below makes its heterogeneity explicit.
+
+\begin{table*}[t]
+\centering
+\scriptsize
+\resizebox{\textwidth}{!}{\input{generated_fcgf_table.tex}}
+\caption{Learned geometry-only FCGF control at top-$K=20$.}
+\label{tab:fcgf}
+\end{table*}
+
+\paragraph{Downstream geometry-control comparison.}
+To test whether the correspondence comparison carries through to the concrete
+label-transfer use case, we rerun the same post-hoc semantic/instance transfer
+summary for the one-way FPFH and top-20 FCGF controls. Table~\ref{tab:baseline-transfer}
+reports the consensus-inlier rows on the same 16-source/one-target split.
+ViT-G gives the highest source coverage and mIoU among the three controls. On
+the target, FCGF reaches 64.2\% semantic mIoU at 17.5\% coverage, while FPFH
+reaches 82.8\% at only 13.2\% coverage; FPFH is not an equal-density
+comparison because it voxelizes the sampled cloud before description. The
+query-level baseline diagnostics and exact aggregation are included in the
+artifact bundle.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\resizebox{\columnwidth}{!}{\input{generated_baseline_transfer_table.tex}}
+\caption{Downstream label-transfer control. All rows use spatial-consensus
+inliers; semantic and instance mIoU are class-balanced over retained queries.
+FPFH uses voxelized points and therefore has a different point denominator.}
+\label{tab:baseline-transfer}
+\end{table}
+
+\section{Reproducibility and scope}
+
+\paragraph{Artifact boundary.}
+The anonymized artifact release contains the paper sources, lightweight
+diagnostics, code, and consistency verifier; the venue-facing PDF package
+contains only the main paper and this supplement. Raw 3RScan frame archives
+and model checkpoints remain external inputs and are not silently bundled.
+
+\paragraph{Protocol comparability.}
+DUSt3R, MASt3R, and VGGT are adjacent RGB foundation models whose standard
+outputs are pointmaps, image-level matches, or multi-view geometry; SemReg and
+ML-SemReg are trained semantic-registration systems. We do not report them as
+direct numeric baselines because porting those outputs to the saved RGB-D
+frame-bank, native-coordinate candidate pool, and post-hoc semantic
+label-transfer denominator would define a different experiment. FPFH and FCGF
+are therefore the controlled geometry-only baselines under the exact protocol
+used here, and no state-of-the-art registration claim is made. No MASt3R smoke
+result is included in this dated snapshot because a one-frame image-match
+experiment would not define the paper's frame-bank or semantic-transfer
+denominator.
+
+The numerical tables are generated from the saved diagnostics with:
+
+\begin{verbatim}
+conda run -n worldcache python \
+  scripts/generate_supplementary_tables.py \
+  --root REPO_ROOT \
+  --output-dir REPO_ROOT/paper
+\end{verbatim}
+
+The final consistency audit is:
+
+\begin{verbatim}
+conda run -n worldcache python \
+  scripts/verify_submission_consistency.py \
+  --root REPO_ROOT
+\end{verbatim}
+
+\end{document}

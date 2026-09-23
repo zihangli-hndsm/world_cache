@@ -1,0 +1,29 @@
+.conda/
+.venv/
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/
+*.py[cod]
+core
+core.*
+*.egg-info/
+outputs/runs/*
+outputs/plots/*
+outputs/tables/*
+outputs/reports/environment_report.txt
+outputs/reports/latest_session_start.txt
+outputs/day1_alignment_examples/
+data/
+checkpoints/
+wandb/
+
+# Local research bookkeeping and prompt material; keep these out of a public
+# repository unless a release explicitly curates them.
+logs/
+SESSION_STATE.md
+SESSION_HANDOFF.md
+external_prompts/
+
+!outputs/runs/.gitkeep
+!outputs/plots/.gitkeep
+!outputs/tables/.gitkeep

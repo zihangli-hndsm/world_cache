@@ -13,8 +13,10 @@ quality, rigid-pose validity, and abstention coverage.
 On the frozen 3RScan audit (16 source relations and one held-out target), the
 ViT-G protocol reaches 68.0% target coverage, 93.5% retained semantic
 accuracy, and 1.54 degrees rotation error. A source-fit residual selector reaches
-22.1% target coverage, 96.6% retained semantic accuracy, 89.5% semantic mIoU, and
-90.7% instance mIoU. The source audit also contains candidate-set,
+22.1% target coverage and 96.6% retained semantic accuracy. Its target semantic
+mIoU is 89.5% conditional on retained queries (19.7% over all fixed queries
+when abstentions count as false negatives), and its conditional instance mIoU is
+90.7%. The source audit also contains candidate-set,
 wrong-consensus, and wrong-pose failures; this repository does not claim
 universal pose-free registration or dense correspondence.
 

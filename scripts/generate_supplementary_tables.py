@@ -67,7 +67,7 @@ def generate_pair_table(frame: pd.DataFrame) -> str:
     lines = [
         r"\begin{tabular}{lrrrrrrr}",
         r"\toprule",
-        r"Pair & $Q$ & Inl. & Cov. & Sem. & Rot. & Trans. & Pose \\",
+        r"Pair & $Q$ & Inl. & Cov. & Sem. acc. & Rot. & Trans. & Pose \\",
         r" & & & (\%) & (\%) & (deg.) & (m) & $<5^\circ/0.25$m \\",
         r"\midrule",
     ]
@@ -164,7 +164,7 @@ def generate_calibration_table(root: Path) -> str:
     frame = frame[(frame.precision_target == 0.9) & (frame.score == "low_spatial_residual")]
     selected = frame[frame.held_pair.isin(["target_source_only_fit", "4aca", "95be", "pair06"])]
     lines = [r"\begin{tabular}{lrrrr}", r"\toprule",
-             r"Fit / held-out pair & Threshold (m) & Cov. & Sem. prec. & Inst. prec. \\",
+             r"Fit / held-out pair & Threshold (m) & Cov. & Sem. acc. & Inst. acc. \\",
              r"\midrule"]
     for row in selected.itertuples(index=False):
         label = r"all source $\rightarrow$ target" if row.held_pair == "target_source_only_fit" else f"LOO {row.held_pair}"
@@ -184,7 +184,7 @@ def generate_risk_controlled_table(root: Path) -> str:
     if audit_path.exists():
         frame = pd.read_csv(audit_path)
         lines = [r"\begin{tabular}{llrrrr}", r"\toprule",
-                 r"Operating point & Split & Threshold & Cov. & Sem. & LCB \\",
+                 r"Operating point & Split & Threshold & Cov. & Sem. acc. & LCB \\",
                  r" & & (m) & (\%) & (\%) & (\%) \\", r"\midrule"]
         labels = {
             "source_fit_descriptive": "source-fit (raw)",
@@ -199,7 +199,7 @@ def generate_risk_controlled_table(root: Path) -> str:
     else:
         frame = pd.read_csv(root / "outputs/runs/20261002_risk_controlled_calibration_vitg_clean/summary.csv")
         lines = [r"\begin{tabular}{lrrrrr}", r"\toprule",
-                 r"Split & Threshold & Cov. & Sem. & LCB & Sem. mIoU \\",
+                 r"Split & Threshold & Cov. & Sem. acc. & LCB & Sem. mIoU \\",
                  r" & (m) & (\%) & (\%) & (\%) & (\%) \\", r"\midrule"]
         for row in frame.itertuples(index=False):
             lines.append(
@@ -218,7 +218,7 @@ def generate_fcgf_table(root: Path) -> str:
     frame = frame.sort_values("order")
     lines = [
         r"\begin{tabular}{lrrrrr}", r"\toprule",
-        r"Pair & Cov. & Sem. & Rot. & Trans. & Pose \\ ",
+        r"Pair & Cov. & Sem. acc. & Rot. & Trans. & Pose \\ ",
         r" & (\%) & (\%) & (deg.) & (m) & $<5^\circ/0.25$m \\ ", r"\midrule",
     ]
     for row in frame.itertuples(index=False):
@@ -248,7 +248,7 @@ def generate_scale_table(root: Path) -> str:
         ("ViT-G/14, target", vitg[vitg.pair.astype(str).str.contains("target")]),
     ]
     lines = [r"\begin{tabular}{lrrrr}", r"\toprule",
-             r"Setting & Cov. & Sem. & Rot. & Pose \\ ",
+             r"Setting & Cov. & Sem. acc. & Rot. & Pose \\ ",
              r" & (\%) & (\%) & (deg.) & $<5^\circ/0.25$m \\ ", r"\midrule"]
     for setting, frame in rows:
         coverage = frame.inliers.sum() / frame.queries.sum()
@@ -269,7 +269,7 @@ def generate_k_sweep_table(root: Path) -> str:
     target = frame[frame.split == "target"].set_index("top_k")
     lines = [
         r"\begin{tabular}{lrrrrrr}", r"\toprule",
-        r"$K$ & Src. cov. & Src. sem. & Src. pose & Tgt. cov. & Tgt. sem. & Tgt. pose \\",
+        r"$K$ & Src. cov. & Src. sem. acc. & Src. pose & Tgt. cov. & Tgt. sem. acc. & Tgt. pose \\",
         r" & (\%) & (\%) & $<5^\circ/0.25$m & (\%) & (\%) & $<5^\circ/0.25$m \\", r"\midrule",
     ]
     for top_k in sorted(source.index):
@@ -336,7 +336,7 @@ def generate_seed_sweep_table(root: Path) -> str:
     frame = pd.read_csv(root / "outputs/runs/20261007_seed_sweep_vitg_clean/summary.csv")
     lines = [
         r"\begin{tabular}{llrrrr}", r"\toprule",
-        r"Split & Seed & Cov. & Sem. & Inst. & Pose \\ ",
+        r"Split & Seed & Cov. & Sem. acc. & Inst. acc. & Pose \\ ",
         r" & & (\%) & (\%) & (\%) & $<5^\circ/0.25$m \\ ", r"\midrule",
     ]
     labels = {"source": "Source, 16 pairs", "target": "Target, held out"}
@@ -388,7 +388,7 @@ def generate_framelevel_table(root: Path) -> str:
         ("Target", "source-selected", target_selected),
     ]
     lines = [r"\begin{tabular}{llrrrr}", r"\toprule",
-             r"Split & Filter & Cov. & Sem. & RANSAC & Rot. \\ ",
+             r"Split & Filter & Cov. & Sem. acc. & RANSAC & Rot. \\ ",
              r" & & (\%) & (\%) & inlier & (deg.) \\ ", r"\midrule"]
     for split, filter_name, row in rows:
         lines.append(
@@ -412,7 +412,7 @@ def generate_baseline_transfer_table(root: Path) -> str:
     }
     lines = [
         r"\begin{tabular}{lrrrr}", r"\toprule",
-        r"Dataset / matcher & Cov. & Sem. mIoU & Inst. mIoU & Sem. acc. \\",
+        r"Dataset / matcher & Cov. & Cond. sem. mIoU & Cond. inst. mIoU & Sem. acc. \\",
         r" & (\%) & (\%) & (\%) & (\%) \\", r"\midrule",
     ]
     for row in frame.itertuples(index=False):

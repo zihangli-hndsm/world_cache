@@ -35,9 +35,12 @@ interval includes zero; the expanded 16-source ViT-G audit reaches 85.0\%
 while explicit candidate-set and wrong-pose failures remain.
 On one held-out target, ViT-G reaches 68.0\%
 inlier coverage, 93.5\% semantic inlier accuracy, and $1.54^\circ$ rotation
-error. A source-only residual gate fit to a 90\% source-precision target
-retains 22.1\% of target queries at 96.6\% target retained semantic accuracy and
-achieves 89.5\% semantic mIoU in cross-scan label transfer. Cross-fitted
+error. A source-only residual gate fit to a requested 90\% retained semantic
+accuracy on source queries retains 22.1\% of target queries at 96.6\% retained
+semantic accuracy.
+Its target semantic mIoU is 89.5\% conditional on retained queries, versus
+19.7\% over the fixed query population when abstentions count as false negatives.
+Cross-fitted
 pooling over all 16 held-out source folds retains only 9.1\% of queries at
 76.6\% retained semantic accuracy, so the source-fit operating point is not a
 universal guarantee.
@@ -54,8 +57,8 @@ problem is deceptively easy to overstate: a correspondence can have the right
 semantic category while supporting a wrong global rigid transform, and a
 correct transform can have too few semantically useful matches. We therefore
 ask a narrower and testable question:
-\emph{can a frozen visual descriptor plus spatial verification expose a useful,
-high-precision subset of cross-scan semantic correspondences?}
+\emph{can a frozen visual descriptor plus spatial verification expose a useful
+subset of cross-scan semantic correspondences with high retained semantic accuracy?}
 
 We study this question on annotated 3RScan reference/rescan pairs
 \cite{3rscan}. The method uses no known alignment while selecting candidates.
@@ -207,11 +210,17 @@ name throughout. Matching uses every depth-valid sampled point; non-zero
 query instance and semantic IDs define the post-hoc evaluation population,
 and a selected reference point with a missing label is counted as incorrect.
 Coverage is the fraction of that fixed query population retained. Pose error
-is scored against the hidden 3RScan transform only after matching. The
-annotated subset contains 16 non-target source pairs and one target pair,
-totaling 15,048 source and 1,069 target query records. The target is treated
-as a single held-out diagnostic under this split, not as evidence of broad
-generalization; all thresholds and selective choices are fit source-only.
+is scored against the hidden 3RScan transform only after matching. The frozen
+headline subset contains 17 availability-selected reference/rescan relations
+with complete RGB-D sequences and annotation meshes: 16 source pairs and one
+target pair, totaling 15,048 source and 1,069 target query records. The original
+target relation, 02b33dfb/fcf66d9e, remained held out when three source relations
+were added. This is not a random sample of the 1,004 relations listed in 3RScan
+metadata; the exact scan IDs and inclusion scope are given in the supplement.
+All 34 scan UUIDs are distinct across the selected relations, but distinct IDs
+do not establish that their physical capture sites are independent. The target
+is a single held-out diagnostic, not evidence of broad generalization; all
+thresholds and selective choices are fit source-only.
 
 For a selected set $A$, the reported conditional class-balanced mIoU averages
 IoU over the union of non-zero query and selected-reference labels present in
@@ -279,15 +288,15 @@ On the original matched 14-pair subset, ViT-G gives a higher weighted retained
 semantic accuracy point estimate, 86.9\% versus 85.1\% for ViT-L; a pair-bootstrap interval
 for the +1.8-point difference is $[-0.4,+5.3]$ points, so we treat this as
 descriptive scale evidence rather than a superiority claim. The expanded 16-source
-ViT-G audit reaches 30.4\% weighted coverage and 85.0\% weighted semantic
-precision.
+ViT-G audit reaches 30.4\% weighted coverage and 85.0\% weighted retained
+semantic accuracy.
 On the target, coverage improves from 65.1\% to 68.0\%, retained semantic
 accuracy from 92.4\% to 93.5\%, and rotation error from $3.97^\circ$ to
 $1.54^\circ$.
 The top-$K$ mechanism is consequential rather than cosmetic: relative to the
 same ViT-G protocol with $K=1$, $K=20$ raises target coverage from 27.9\% to
 68.0\% while retained semantic accuracy rises from 92.3\% to 93.5\%; on the source
-pool it trades 11.2\%/89.5\% for 30.4\%/85.0\% coverage/precision.
+pool it trades 11.2\%/89.5\% for 30.4\%/85.0\% coverage/retained accuracy.
 The full FPFH diagnostic reaches 4.31\% weighted inlier coverage and 67.5\%
 retained semantic accuracy, with no strict pose success under the
 $5^\circ$/$0.25$ m criterion; its voxelized query denominator is not comparable
@@ -298,15 +307,17 @@ while keeping the same points and consensus budget reduces the source result
 to 10.5\% coverage and 46.3\% retained semantic accuracy, with 0/16 strict pose
 successes; the held-out target falls to 7.9\%/3.6\% and $162.2^\circ$.
 
-\paragraph{Scene-level uncertainty.}
-We resample the 16 source pairs rather than individual patches. The weighted
+\paragraph{Relation-level uncertainty.}
+We bootstrap the 16 source relation pairs rather than individual patches. The weighted
 retained semantic accuracy is 85.0\% with a 95\% pair-bootstrap interval of
 [69.5\%,93.5\%], weighted coverage is 30.4\% [20.1\%,41.0\%], and strict
 pose success is 6.3\% [0.0\%,18.8\%]. The width of these intervals is itself
-evidence of heterogeneous scene difficulty; the single held-out target is
-reported as a point estimate.
-A post-hoc RANSAC seed audit keeps the target stable at 93.1--93.5\% semantic
-precision and 67.6--68.2\% coverage, but the source semantic aggregate ranges
+evidence of heterogeneous relation difficulty; the single held-out target is
+reported as a point estimate. Because physical-site overlap between distinct
+scan UUIDs was not verified, these intervals quantify variation across the
+recorded relations and do not establish independent-site uncertainty.
+A post-hoc RANSAC seed audit keeps the target stable at 93.1--93.5\% retained
+semantic accuracy and 67.6--68.2\% coverage, but the source semantic aggregate ranges
 from 83.1\% to 88.0\% across three fixed seeds. The variation is concentrated
 in hard wrong-pose pairs, so the method should be interpreted as a selective
 verifier rather than a deterministic global-pose estimator.
@@ -315,12 +326,12 @@ verifier rather than a deterministic global-pose estimator.
 Figure~\ref{fig:risk} summarizes the complete source and target query audit.
 At 20\% retained coverage, low-residual selection has 87.4\% source and
 97.7\% target retained semantic accuracy. A source-only residual gate of
-0.040931 m, fit to a 90\% source-accuracy target, retains 22.1\% of target
+0.040931 m, fit to a requested 90\% retained semantic accuracy on source pairs, retains 22.1\% of target
 queries at 96.6\% retained semantic accuracy. A source-selected frame-level reciprocal/margin control
-reaches only 87.6\% at 12.1\% target coverage, so descriptor confidence alone
-does not explain the consensus result. No selector reaches a 95\% precision constraint on the
+reaches only 87.6\% retained semantic accuracy at 12.1\% target coverage, so descriptor confidence alone
+does not explain the consensus result. No selector reaches a 95\% retained-semantic-accuracy target on the
 full heterogeneous source pool. Leave-one-pair-out source-fit gates at the same
-90\% source-accuracy target still yield 0.0\% and 10.0\% retained semantic accuracy on held-out 4aca
+requested 90\% retained semantic accuracy on source pairs still yield 0.0\% and 10.0\% retained semantic accuracy on held-out 4aca
 and 95be, respectively. A post-hoc candidate-set audit shows that a correct
 semantic label appears in the top-20 set for only 19.5\% of 4aca queries but
 69.2\% of 95be queries; the corresponding correct-inlier recoveries are 0.0\%
@@ -374,7 +385,9 @@ source audit.
 Table~\ref{tab:transfer} treats each selected match as a semantic and instance
 label-transfer prediction. On the target, consensus inliers provide 85.5\%
 semantic mIoU at 68.0\% coverage. The source-fit residual selector
-raises semantic mIoU to 89.5\% and instance mIoU to 90.7\% at 22.1\% coverage.
+raises conditional semantic mIoU to 89.5\% and conditional instance mIoU to
+90.7\% at 22.1\% coverage. Over the fixed target query population, with
+abstentions counted as false negatives, its semantic mIoU is 19.7\%.
 The corresponding pooled conditional semantic mIoU is 61.2\%, while the
 pair-macro conditional semantic mIoU is 67.3\%; the two values differ because
 the former pools retained queries before taking the class mean and the latter
@@ -408,11 +421,14 @@ Target / source-fit & 22.1\% & 89.5\% & 90.7\% \\
 \section{Limitations and conclusion}
 
 This is a selective correspondence study, not a universal registration or
-efficiency claim. The frozen headline snapshot contains 17 pairable RGB-D
-sequence archives (16 sources and one target). The metadata lists many more
-relations without the
-corresponding frame archives; one target scene cannot establish broad
-generalization. Applied without refitting, the source-only residual gate
+efficiency claim. The frozen headline snapshot contains 17 availability-selected
+reference/rescan relations (16 sources and one target), out of 1,004 relations
+listed in the metadata. The exact IDs and inclusion scope are reported in the
+supplement. Although scan UUIDs are distinct, physical-site overlap across
+relations was not verified; pair-bootstrap intervals therefore describe
+relation-level variation rather than confirmed independent-site uncertainty.
+One held-out target cannot establish broad generalization. Applied without
+refitting, the source-only residual gate
 is not a guarantee outside this split; the present snapshot does not claim
 external validation beyond the reported target.
 FPFH and FCGF are geometry controls;
@@ -424,8 +440,8 @@ future work.
 The evidence supports a narrower conclusion: the larger frozen transformer has
 a higher final retained semantic-accuracy point estimate on the matched subset,
 but the uncertainty interval includes zero and no pre-consensus candidate-layer
-effect was isolated. Spatial consensus makes a useful high-precision subset
-explicit, but neither component eliminates candidate-availability,
+effect was isolated. Spatial consensus makes a useful high-accuracy retained
+subset explicit, but neither component eliminates candidate-availability,
 wrong-consensus, or wrong-pose hypotheses. Evaluating these axes separately yields a more reliable
 and reproducible account of cross-scan correspondence under real RGB-D shift.
 

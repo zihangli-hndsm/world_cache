@@ -22,11 +22,60 @@ matching uses every depth-valid sampled point, rescan observations are stored
 in native scan coordinates, and annotation labels are used only for post-hoc
 scoring and pose evaluation.
 
+\section{Relation inclusion, target choice, and scan overlap}
+
+The headline set is an availability-selected subset of the 1,004 official
+reference/rescan relations listed in 3RScan metadata, not a random sample from
+that universe. Inclusion required complete RGB-D sequence archives for both
+scans and the corresponding annotation meshes to be available to the evaluator.
+The original matched 14-relation analysis comprised 13 source pairs and the
+pre-designated held-out target. Three additional source relations (pair06--08)
+were added without changing the target or the evaluation protocol. The target
+was therefore preserved from the initial split rather than randomly sampled.
+The table gives all 17 relation identities; each side contributed the first
+20 frames in manifest order. No reference or rescan UUID is reused across the
+17 relations (34 distinct scan UUIDs). This scan-level disjointness does not
+show that capture locations are physically independent: cross-relation site
+overlap was not verified. Pair-bootstrap intervals below describe variation
+across relation units and should not be read as confirmed independent-site
+uncertainty.
+
+\begin{table*}[t]
+\centering
+\scriptsize
+\begin{tabular}{llcc}
+\toprule
+Pair & Role & Reference scan UUID & Rescan UUID \\
+\midrule
+\texttt{0cac} & Source & \texttt{0cac75b1-8d6f-2d13-8c17-9099db8915bc} & \texttt{0cac75b3-8d6f-2d13-8f4b-3d74070429df} \\
+\texttt{20c993} & Source & \texttt{20c99392-698f-29c5-8439-54bec948ecb1} & \texttt{20c99397-698f-29c5-8534-5304111c28af} \\
+\texttt{4aca} & Source & \texttt{4acaebc0-6c10-2a2a-852e-0226d6539299} & \texttt{4acaebc8-6c10-2a2a-8525-fe9c4b7f4b25} \\
+\texttt{5630} & Source & \texttt{5630cfc9-12bf-2860-84ed-5bb189f0e94e} & \texttt{c92fb592-f771-2064-8446-c2605c0202e9} \\
+\texttt{c670} & Source & \texttt{c6707946-2ecb-2de2-8381-d5eae12243ee} & \texttt{c6707944-2ecb-2de2-8369-bd291653f5c3} \\
+\texttt{6bde} & Source & \texttt{6bde6055-9162-246f-8f44-e3efc21c9e14} & \texttt{6bde6057-9162-246f-8d07-dfba45622e09} \\
+\texttt{751a} & Source & \texttt{751a55a3-fe61-2c3b-8d1b-daad80d1af30} & \texttt{751a5581-fe61-2c3b-8cac-76cacfb277e0} \\
+\texttt{95be} & Source & \texttt{95be45d9-a558-22da-9d6f-3d380c02f40e} & \texttt{95be45d7-a558-22da-9c39-ea7e57c68be5} \\
+\texttt{chairs} & Source & \texttt{09582244-e2c2-2de1-956c-357092d949d1} & \texttt{0958222f-e2c2-2de1-94fd-986561908cee} \\
+\texttt{pair02} & Source & \texttt{02b33e01-be2b-2d54-93fb-4145a709cec5} & \texttt{fcf66d8a-622d-291c-8429-0e1109c6bb26} \\
+\texttt{pair03} & Source & \texttt{0958220d-e2c2-2de1-9710-c37018da1883} & \texttt{0958220b-e2c2-2de1-96bc-739f09c1e8f8} \\
+\texttt{pair04} & Source & \texttt{09582212-e2c2-2de1-9700-fa44b14fbded} & \texttt{0958221b-e2c2-2de1-96b1-6233099811a0} \\
+\texttt{pair05} & Source & \texttt{09582225-e2c2-2de1-9564-f6681ef5e511} & \texttt{0958222a-e2c2-2de1-9474-35e601b3682a} \\
+\texttt{pair06} & Source & \texttt{0958224e-e2c2-2de1-943b-38e36345e2e7} & \texttt{09582250-e2c2-2de1-9541-3efcbdc2dca4} \\
+\texttt{pair07} & Source & \texttt{0ad2d382-79e2-2212-98b3-641bf9d552c1} & \texttt{dcb6a329-5526-23f1-9d81-7718f682269c} \\
+\texttt{pair08} & Source & \texttt{0cac7536-8d6f-2d13-8dc2-2f9d7aa62dc4} & \texttt{dc42b36c-8d5c-2d2a-86aa-19a8929361fd} \\
+\texttt{target} & Held out & \texttt{02b33dfb-be2b-2d54-92d2-cd012b2b3c40} & \texttt{fcf66d9e-622d-291c-84c2-bb23dfe31327} \\
+\bottomrule
+\end{tabular}
+\caption{All 17 headline reference/rescan relations. The pair label is the
+evaluator's short name; full UUIDs identify the official scans.}
+\label{tab:relation-inclusion}
+\end{table*}
+
 \section{Full per-pair audit}
 
 The main paper reports weighted aggregates over 16 source pairs and one
-held-out target. Table~\ref{tab:pairs} exposes every pair. ``Sem.'' is semantic
-precision among consensus inliers. The pose column uses the strict
+held-out target. Table~\ref{tab:pairs} exposes every pair. ``Sem.'' is retained
+semantic accuracy among consensus inliers. The pose column uses the strict
 $5^\circ/0.25$~m gate.
 
 \begin{table*}[t]
@@ -107,7 +156,7 @@ budget, and the source/target split fixed. The sweep is an audit of the fixed
 $K=20$ operating point; no target result is used to choose $K$. On the source
 pairs, $K=1$ has the highest weighted retained semantic accuracy but only 11.2\%
 coverage. Among settings retaining at least 20\% weighted source coverage,
-$K=10$ is the most precise (89.3\%), while $K=20$ gives the larger
+$K=10$ has the highest retained semantic accuracy (89.3\%), while $K=20$ gives the larger
 coverage-oriented operating point used in the main paper (30.4\%). The
 held-out target follows the same qualitative pattern up to $K=20$; widening
 to $K=50$ reduces retained semantic accuracy and loses the strict pose gate.
@@ -195,8 +244,8 @@ retained semantic-accuracy target, then applied once to the target. We call
 this an empirical source-fit gate rather than a calibration guarantee.
 Table~\ref{tab:calibration} also reports representative leave-one-pair-out
 (LOO) fits. LOO thresholds are
-fit without the listed pair, and the reported coverage and precision are on the
-held-out pair.
+fit without the listed pair, and the reported coverage and retained semantic
+accuracy are on the held-out pair.
 
 \begin{table}[t]
 \centering
@@ -220,7 +269,7 @@ threshold search scans residual prefixes and uses a one-sided empirical target;
 it does not provide a family-wise finite-sample guarantee.
 
 The 0.03304~m source-fit threshold retains 6.1\% of source queries with 91.7\%
-observed accuracy and 14.1\% of target queries at 98.7\% accuracy and
+observed retained semantic accuracy and 14.1\% of target queries at 98.7\% retained accuracy and
 97.1\% semantic mIoU (Table~\ref{tab:risk-controlled}). However, the threshold
 was selected after scanning 14,949 residual prefixes, so its raw 90.1\%
 Clopper--Pearson lower bound is descriptive rather than family-wise valid. A
@@ -259,9 +308,10 @@ fraction of valid query patches retained by the selector.}
 \end{table}
 
 At the target, consensus reaches 85.5\% conditional semantic mIoU at 68.0\% coverage.
-The source-fit selector reaches 89.5\% semantic and 90.7\% instance
-mIoU at 22.1\% coverage. The source rows are retained to show that this utility
-is not uniform across the heterogeneous scene pool.
+The source-fit selector reaches 89.5\% conditional semantic and 90.7\%
+conditional instance mIoU at 22.1\% coverage; its fixed-query, abstention-aware
+semantic mIoU is 19.7\% (Table~\ref{tab:abstention-miou}). The source rows
+show that this utility is not uniform across the heterogeneous relation pool.
 
 \begin{table}[t]
 \centering
@@ -309,10 +359,11 @@ To test whether the correspondence comparison carries through to the concrete
 label-transfer use case, we rerun the same post-hoc semantic/instance transfer
 summary for the one-way FPFH and top-20 FCGF controls. Table~\ref{tab:baseline-transfer}
 reports the consensus-inlier rows on the same 16-source/one-target split.
-ViT-G gives the highest source coverage and mIoU among the three controls. On
-the target, FCGF reaches 64.2\% semantic mIoU at 17.5\% coverage, while FPFH
-reaches 82.8\% at only 13.2\% coverage; FPFH is not an equal-density
-comparison because it voxelizes the sampled cloud before description. The
+The rows are descriptive method-specific results, not a direct coverage ranking
+across all three methods: FPFH voxelizes the sampled cloud before description,
+so its query denominator differs from the patch-based ViT-G and FCGF
+denominators. On the target, FCGF reaches 64.2\% semantic mIoU at 17.5\%
+coverage, while FPFH reaches 82.8\% at 13.2\% coverage. The
 query-level baseline diagnostics and exact aggregation are included in the
 artifact bundle.
 

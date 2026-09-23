@@ -34,9 +34,11 @@ PYTHONPATH=./scripts \
 ```
 
 The evaluator builds candidates from RGB tokens and native RGB-D geometry; the
-hidden scan transform and annotation labels are used only for scoring. The
-The external inputs are the FCGF checkpoint and the 3RScan annotation/data root,
-as well as the DINOv2 weights and frame archives; they are not bundled.
+hidden scan transform and annotation labels are used only for scoring. External
+inputs include the FCGF checkpoint, the 3RScan annotation/data root, DINOv2
+weights, and frame archives; they are not bundled. The supplement lists the 17
+evaluated reference/rescan relations and documents the availability-based
+inclusion rule, held-out target choice, and scan-overlap limitation.
 
 The following audits are reproducible from the checked-in scripts:
 

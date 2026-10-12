@@ -88,7 +88,7 @@ def render_method(output_dir: Path) -> None:
 
 def load_source_summaries(root: Path) -> pd.DataFrame:
     rows: list[dict[str, float | str]] = []
-    clean_aggregate = root / "20261002_3rscan_consensus_vitg_clean_v2/summary_all.csv"
+    clean_aggregate = root / "20260922_3rscan_consensus_vitg_clean_v2/summary_all.csv"
     if clean_aggregate.exists():
         frame = pd.read_csv(clean_aggregate)
         frame = frame[~frame.pair.astype(str).str.contains("target")]
@@ -118,10 +118,19 @@ def load_source_summaries(root: Path) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def render_failures(output_dir: Path, per_pair_path: Path, summary_root: Path) -> None:
+def render_failures(output_dir: Path, per_pair_path: Path, summary_root: Path,
+                    corrected_poses: Path | None = None) -> None:
     per_pair = pd.read_csv(per_pair_path)
     low = per_pair[per_pair.score == "low_spatial_residual"].set_index("pair")
     summaries = load_source_summaries(summary_root).set_index("pair")
+    if corrected_poses is None:
+        raise ValueError("corrected scene-unit pose scores required for paper figure")
+    corrected = pd.read_csv(corrected_poses).set_index("run_id")
+    for pair in summaries.index:
+        if not corrected.loc[pair, "selected_and_inlier_arrays_reproduced"]:
+            raise ValueError("pose prediction did not reproduce")
+        summaries.loc[pair, "rotation"] = corrected.loc[pair, "rotation_error_degrees"]
+        summaries.loc[pair, "translation"] = corrected.loc[pair, "translation_error_m"]
     selected = ["4aca", "95be", "pair06", "pair07", "20c993", "6bde", "pair08"]
     selected = [pair for pair in selected if pair in low.index and pair in summaries.index]
 
@@ -197,10 +206,11 @@ def main() -> None:
     parser.add_argument("--per-pair", type=Path, required=True)
     parser.add_argument("--summary-root", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--corrected-poses", type=Path, default=Path("outputs/reports/20261008_vitg_source_corrected_pose_units/per_relation.csv"))
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
     render_method(args.output_dir)
-    render_failures(args.output_dir, args.per_pair, args.summary_root)
+    render_failures(args.output_dir, args.per_pair, args.summary_root, args.corrected_poses)
 
 
 if __name__ == "__main__":

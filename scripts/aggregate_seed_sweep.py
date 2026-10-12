@@ -10,7 +10,7 @@ import pandas as pd
 
 
 def pair_name(path: Path) -> str:
-    name = path.name.replace("20261007_seed_sweep_", "").replace("_vitg_clean", "")
+    name = path.name.replace("20260922_seed_sweep_", "").replace("_vitg_clean", "")
     return "target" if name == "target" else name
 
 

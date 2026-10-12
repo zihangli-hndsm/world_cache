@@ -133,6 +133,7 @@ def evaluate_matches(
         "median_inlier_residual_m": float(np.median(residuals[evaluated_inliers])) if evaluated_inliers.any() else float("nan"),
         "rotation_error_deg": float(np.degrees(rotation_error)),
         "translation_error_m": float(translation_error),
+        "predicted_pose": estimated,
     }
     result["query_diagnostics"] = pd.DataFrame(
         {
@@ -205,6 +206,8 @@ def main() -> None:
         for mutual in (False, True)
     ]
     diagnostics = {row["method"]: row.pop("query_diagnostics") for row in rows}
+    for row in rows:
+        np.save(args.output_dir / f"predicted_pose_{row['method']}.npy", row.pop("predicted_pose"))
     summary = pd.DataFrame(rows)
     summary.to_csv(args.output_dir / "summary.csv", index=False)
     if args.save_query_diagnostics:

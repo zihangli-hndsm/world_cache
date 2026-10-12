@@ -174,7 +174,12 @@ def main() -> None:
     parser.add_argument(
         "--save-candidate-set-audit",
         action="store_true",
-        help="save post-hoc semantic/instance hit indicators for each top-K candidate set",
+        help="save post-hoc semantic and legacy globalId hit indicators for each top-K set",
+    )
+    parser.add_argument(
+        "--save-physical-instance-candidate-audit",
+        action="store_true",
+        help="score candidates against cross-scan objectId links for post-hoc instance audit",
     )
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
@@ -185,11 +190,51 @@ def main() -> None:
     manifest = json.loads((args.pair_run / "manifest.json").read_text(encoding="utf-8"))
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     backbone = load_dinov2(args.model_size, config["resolution"], device)
-    reference_tree, _, reference_global_ids, reference_semantic_ids, _ = read_annotated_mesh(args.annotation_root, config["reference"])
-    rescan_tree, _, rescan_global_ids, rescan_semantic_ids, _ = read_annotated_mesh(args.annotation_root, config["rescan"])
+    reference_tree, reference_object_ids_mesh, reference_global_ids, reference_semantic_ids, reference_object_labels = read_annotated_mesh(args.annotation_root, config["reference"])
+    rescan_tree, rescan_object_ids_mesh, rescan_global_ids, rescan_semantic_ids, rescan_object_labels = read_annotated_mesh(args.annotation_root, config["rescan"])
+
+    rescan_to_reference_object_id: dict[int, int] = {}
+    if args.save_physical_instance_candidate_audit:
+        metadata_path = args.annotation_root / "3RScan.json"
+        if not metadata_path.is_file():
+            raise FileNotFoundError("physical-instance audit requires 3RScan.json at annotation root")
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        relation = next((item for item in metadata if item.get("reference") == config["reference"]), None)
+        if relation is None:
+            raise ValueError(f"reference scan missing from metadata: {config['reference']}")
+        relation_scan = next(
+            (item for item in relation.get("scans", []) if item.get("reference") == config["rescan"]),
+            None,
+        )
+        if relation_scan is None:
+            raise ValueError(f"rescan missing from relation metadata: {config['rescan']}")
+        ambiguous_ids: set[int] = set()
+        for group in relation.get("ambiguity", []):
+            for item in group:
+                for key in ("instance_source", "instance_target"):
+                    if key in item:
+                        ambiguous_ids.add(int(item[key]))
+        for item in relation_scan.get("rigid", []):
+            if isinstance(item, dict):
+                src, ref = int(item["instance_rescan"]), int(item["instance_reference"])
+                if src in ambiguous_ids or ref in ambiguous_ids:
+                    continue
+                previous = rescan_to_reference_object_id.get(src)
+                if previous is not None and previous != ref:
+                    raise ValueError(f"conflicting metadata links for rescan objectId {src}")
+                rescan_to_reference_object_id[src] = ref
+        for object_id in set(reference_object_labels) & set(rescan_object_labels):
+            if object_id in ambiguous_ids:
+                continue
+            if reference_object_labels[object_id] != rescan_object_labels[object_id]:
+                continue
+            # An explicit moved-object mapping takes precedence over an ID
+            # collision; otherwise shared scene-local IDs denote the same
+            # tracked instance across the pair.
+            rescan_to_reference_object_id.setdefault(object_id, object_id)
 
     reference_features = {layer: [] for layer in layers}
-    reference_points, reference_ids, reference_semantics = [], [], []
+    reference_points, reference_ids, reference_semantics, reference_object_ids = [], [], [], []
     reference_all_points = []
     for entry in manifest["reference"]:
         observation = load(args.pair_run / entry["path"])
@@ -205,9 +250,10 @@ def main() -> None:
         reference_points.append(points.numpy().astype(np.float64))
         reference_ids.append(ids)
         reference_semantics.append(semantics)
+        reference_object_ids.append(reference_object_ids_mesh[nearest])
 
     query_features = {layer: [] for layer in layers}
-    query_points_native, query_ids, query_semantics, query_frame_ids = [], [], [], []
+    query_points_native, query_ids, query_semantics, query_frame_ids, query_object_ids = [], [], [], [], []
     query_all_points_native = []
     rescan_to_reference = np.asarray(config["rescan_to_reference"], dtype=np.float64)
     for entry in manifest["rescan"]:
@@ -224,16 +270,19 @@ def main() -> None:
         query_points_native.append(points_native)
         query_ids.append(ids)
         query_semantics.append(semantics)
+        query_object_ids.append(rescan_object_ids_mesh[nearest])
         query_frame_ids.append(np.full(len(points_native), int(entry["frame_id"]), dtype=np.int64))
 
     reference_points = np.concatenate(reference_points, axis=0)
     reference_all_points = np.concatenate(reference_all_points, axis=0)
     reference_ids = np.concatenate(reference_ids, axis=0)
     reference_semantics = np.concatenate(reference_semantics, axis=0)
+    reference_object_ids = np.concatenate(reference_object_ids, axis=0)
     query_points_native = np.concatenate(query_points_native, axis=0)
     query_all_points_native = np.concatenate(query_all_points_native, axis=0)
     query_ids = np.concatenate(query_ids, axis=0)
     query_semantics = np.concatenate(query_semantics, axis=0)
+    query_object_ids = np.concatenate(query_object_ids, axis=0)
     query_frame_ids = np.concatenate(query_frame_ids, axis=0)
     query_evaluable = (query_ids != 0) & (query_semantics != 0)
     for layer in layers:
@@ -303,6 +352,7 @@ def main() -> None:
                 )[0]
                 rotation_error = Rotation.from_matrix(matrix[:3, :3].T @ rescan_to_reference[:3, :3]).magnitude()
                 translation_error = np.linalg.norm(matrix[:3, 3] - rescan_to_reference[:3, 3])
+                np.save(args.output_dir / f"predicted_pose_geometry{geometry_weight:g}_k{top_k}_seed{ransac_seed}.npy", matrix)
                 row = {
                     "geometry_weight": geometry_weight,
                     "top_k": top_k,
@@ -316,6 +366,9 @@ def main() -> None:
                     "inliers": int(evaluated_inliers.sum()),
                     "inlier_coverage": float(evaluated_inliers.sum() / evaluated_query_count) if evaluated_query_count else 0.0,
                     "inlier_instance_accuracy": float(np.mean(reference_ids[selected[evaluated_inliers]] == query_ids[evaluated_inliers])) if evaluated_inliers.any() else float("nan"),
+                    # Backward-compatible clarity alias: globalId is the global
+                    # semantic mapping, not a physical-instance identifier.
+                    "inlier_global_id_accuracy": float(np.mean(reference_ids[selected[evaluated_inliers]] == query_ids[evaluated_inliers])) if evaluated_inliers.any() else float("nan"),
                     "inlier_semantic_accuracy": float(np.mean(reference_semantics[selected[evaluated_inliers]] == query_semantics[evaluated_inliers])) if evaluated_inliers.any() else float("nan"),
                     "median_inlier_residual_m": float(np.median(residuals[evaluated_inliers])) if evaluated_inliers.any() else float("nan"),
                     "forward_geometry_overlap": float(np.mean(forward_geometry_distances <= args.threshold)),
@@ -349,19 +402,25 @@ def main() -> None:
                         "query_evaluable": query_evaluable,
                         "query_semantic_id": query_semantics,
                         "selected_reference_semantic_id": reference_semantics[selected],
+                        # Backward-compatible global semantic mapping names.
                         "query_instance_id": query_ids,
                         "selected_reference_instance_id": reference_ids[selected],
+                        "query_global_id": query_ids,
+                        "selected_reference_global_id": reference_ids[selected],
                         "semantic_correct": reference_semantics[selected] == query_semantics,
+                        # Legacy instance_correct compares globalId; use the
+                        # physical-instance audit flag for tracked object IDs.
                         "instance_correct": reference_ids[selected] == query_ids,
+                        "global_id_correct": reference_ids[selected] == query_ids,
                     }
                     if args.seed_sweep is not None:
                         diagnostic["ransac_seed"] = int(ransac_seed)
                     if args.save_candidate_set_audit:
                         # These fields are strictly post-hoc: candidate_indices
                         # were constructed from descriptors before any labels
-                        # entered the computation.  They quantify whether the
-                        # correct semantic/instance identity was available to
-                        # consensus at all.
+                        # entered the computation. The legacy instance-named
+                        # values compare globalId (global semantic mapping),
+                        # not physical objectId identity.
                         candidate_semantics = reference_semantics[candidate_indices]
                         candidate_instances = reference_ids[candidate_indices]
                         semantic_matches = candidate_semantics == query_semantics[:, None]
@@ -371,6 +430,26 @@ def main() -> None:
                             "candidate_instance_count": instance_matches.sum(axis=1).astype(np.int64),
                             "candidate_semantic_hit": semantic_matches.any(axis=1) & query_evaluable,
                             "candidate_instance_hit": instance_matches.any(axis=1) & query_evaluable,
+                            "candidate_global_id_count": instance_matches.sum(axis=1).astype(np.int64),
+                            "candidate_global_id_hit": instance_matches.any(axis=1) & query_evaluable,
+                        })
+                    if args.save_physical_instance_candidate_audit:
+                        mapped_reference_ids = np.asarray(
+                            [rescan_to_reference_object_id.get(int(object_id), -1)
+                             for object_id in query_object_ids],
+                            dtype=np.int64,
+                        )
+                        physical_evaluable = query_evaluable & (mapped_reference_ids >= 0)
+                        candidate_object_ids = reference_object_ids[candidate_indices]
+                        physical_matches = candidate_object_ids == mapped_reference_ids[:, None]
+                        diagnostic.update({
+                            "query_object_id": query_object_ids,
+                            "mapped_reference_object_id": mapped_reference_ids,
+                            "selected_reference_object_id": reference_object_ids[selected],
+                            "physical_instance_correct": reference_object_ids[selected] == mapped_reference_ids,
+                            "physical_instance_evaluable": physical_evaluable,
+                            "physical_instance_candidate_count": physical_matches.sum(axis=1).astype(np.int64),
+                            "physical_instance_candidate_hit": physical_matches.any(axis=1) & physical_evaluable,
                         })
                     query_diagnostics.append(pd.DataFrame(diagnostic))
     summary = pd.DataFrame(rows)
@@ -390,6 +469,8 @@ def main() -> None:
         "group_cap": args.group_cap,
         "descriptor_control": args.descriptor_control,
         "candidate_set_audit_posthoc": bool(args.save_candidate_set_audit),
+        "physical_instance_candidate_audit_posthoc": args.save_physical_instance_candidate_audit,
+        "physical_instance_link_count": len(rescan_to_reference_object_id),
         "seed_sweep_posthoc": args.seed_sweep is not None,
         "ransac_seeds": args.seed_sweep if args.seed_sweep is not None else [17],
     }, indent=2) + "\n", encoding="utf-8")

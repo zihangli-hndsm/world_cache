@@ -37,10 +37,13 @@ def _metadata_matrix(value: Any, name: str) -> np.ndarray:
     # 3RScan.json stores the transform as a flattened column-major matrix;
     # pose.txt uses the usual row-major text layout with translation in the
     # last column.  Convert metadata to the same internal convention.  The
-    # official FAQ specifies scene-transform translations in millimetres,
-    # while camera poses and meshes use metres.
+    # The released metadata translations use metres, as do poses and meshes.
+    # Official data.cc reads the matrix unchanged; rio.cc applies it directly
+    # to mesh vertices, and sequence.cc multiplies its translation by 1000
+    # only when requesting millimetre poses. The FAQ's millimetre statement
+    # conflicts with this code and the full 110-relation static-surface audit:
+    # outputs/reports/20261008_scene_transform_unit_audit/.
     matrix = array.reshape(4, 4).T
-    matrix[:3, 3] *= 0.001
     return matrix
 
 

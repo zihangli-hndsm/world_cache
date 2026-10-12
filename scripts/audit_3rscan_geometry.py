@@ -86,7 +86,7 @@ def main() -> None:
         "query_scan": args.rescan,
         "depth_unit": "m",
         "pose_translation_unit": "m",
-        "scene_transform_translation_unit_original": "mm",
+        "scene_transform_translation_unit_original": "m (official code and static-surface consistency audit)",
         "scene_transform_translation_unit_internal": "m",
         "internal_canonical_units": "metres",
         "rescan_to_reference": transform_report(pair.rescan_to_reference),

@@ -17,6 +17,8 @@ def main() -> None:
     )
     args = parser.parse_args()
     root = args.root.resolve()
+    if (root / "paper/SCENE_UNIT_CORRECTION_PENDING.md").exists():
+        raise RuntimeError("scene-transform unit correction pending; refresh evidence and PDFs before bundling")
     output = args.output if args.output.is_absolute() else root / args.output
     files = {
         "main.pdf": root / "paper/main.pdf",

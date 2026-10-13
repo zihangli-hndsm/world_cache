@@ -1,0 +1,117 @@
+{
+  "status": "complete",
+  "paper_source_relation_count": 16,
+  "paper_source_reference_ids": [
+    "02b33e01-be2b-2d54-93fb-4145a709cec5",
+    "0958220d-e2c2-2de1-9710-c37018da1883",
+    "09582212-e2c2-2de1-9700-fa44b14fbded",
+    "09582225-e2c2-2de1-9564-f6681ef5e511",
+    "09582244-e2c2-2de1-956c-357092d949d1",
+    "0958224e-e2c2-2de1-943b-38e36345e2e7",
+    "0ad2d382-79e2-2212-98b3-641bf9d552c1",
+    "0cac7536-8d6f-2d13-8dc2-2f9d7aa62dc4",
+    "0cac75b1-8d6f-2d13-8c17-9099db8915bc",
+    "20c99392-698f-29c5-8439-54bec948ecb1",
+    "4acaebc0-6c10-2a2a-852e-0226d6539299",
+    "5630cfc9-12bf-2860-84ed-5bb189f0e94e",
+    "6bde6055-9162-246f-8f44-e3efc21c9e14",
+    "751a55a3-fe61-2c3b-8d1b-daad80d1af30",
+    "95be45d9-a558-22da-9d6f-3d380c02f40e",
+    "c6707946-2ecb-2de2-8381-d5eae12243ee"
+  ],
+  "paper_total_relation_scan_ids": 17,
+  "official_validation_relation_count": 110,
+  "official_validation_environment_count": 47,
+  "paper_source_refs_with_validation_geometry_candidates": 2,
+  "validation_refs_with_paper_source_geometry_candidates": 3,
+  "screened_paper_source_by_validation_pairs": 752,
+  "geometry_candidate_count_at_fitness_0_40_rmse_0_08": 3,
+  "fixed_semantic_coherence_candidate_count": 0,
+  "candidate_pairs": [
+    {
+      "source_id": "5630cfc9-12bf-2860-84ed-5bb189f0e94e",
+      "validation_reference_id": "5630cfcf-12bf-2860-8784-83d28a611a83",
+      "validation_relations_evaluated": 4,
+      "symmetric_fitness": 0.4143549797313409,
+      "symmetric_rmse_m": 0.05906371227931088,
+      "source_coverage": 0.037326079200856226,
+      "target_coverage": 0.04130054377481325,
+      "matched_vertices": 2511,
+      "semantic_fields": {
+        "NYU40": {
+          "nonzero_exact_agreement": 0.38470776621297037,
+          "nonzero_marginal_reference": 0.15037634591259874,
+          "lift": 0.23433142030037163
+        },
+        "Eigen13": {
+          "nonzero_exact_agreement": 0.5035669324381032,
+          "nonzero_marginal_reference": 0.1998644405425266,
+          "lift": 0.30370249189557663
+        },
+        "RIO27": {
+          "nonzero_exact_agreement": 0.40179989412387507,
+          "nonzero_marginal_reference": 0.1783188788228413,
+          "lift": 0.22348101530103376
+        }
+      },
+      "meets_fixed_semantic_coherence_rule": false
+    },
+    {
+      "source_id": "6bde6055-9162-246f-8f44-e3efc21c9e14",
+      "validation_reference_id": "b1f23308-d255-2761-94da-981d962c6bf8",
+      "validation_relations_evaluated": 1,
+      "symmetric_fitness": 0.528178243774574,
+      "symmetric_rmse_m": 0.04320634116897673,
+      "source_coverage": 0.1195275479171087,
+      "target_coverage": 0.11452714172545174,
+      "matched_vertices": 3380,
+      "semantic_fields": {
+        "NYU40": {
+          "nonzero_exact_agreement": 0.9297297297297298,
+          "nonzero_marginal_reference": 0.8813230347464583,
+          "lift": 0.04840669498327144
+        },
+        "Eigen13": {
+          "nonzero_exact_agreement": 0.9546716003700277,
+          "nonzero_marginal_reference": 0.921731181436922,
+          "lift": 0.03294041893310573
+        },
+        "RIO27": {
+          "nonzero_exact_agreement": 0.9357466063348416,
+          "nonzero_marginal_reference": 0.8852546016666326,
+          "lift": 0.05049200466820902
+        }
+      },
+      "meets_fixed_semantic_coherence_rule": false
+    },
+    {
+      "source_id": "6bde6055-9162-246f-8f44-e3efc21c9e14",
+      "validation_reference_id": "0cac7540-8d6f-2d13-8eee-36ba2a428e3f",
+      "validation_relations_evaluated": 2,
+      "symmetric_fitness": 0.4191753926701571,
+      "symmetric_rmse_m": 0.05067536483715946,
+      "source_coverage": 0.05226677982884221,
+      "target_coverage": 0.08033525032321341,
+      "matched_vertices": 1478,
+      "semantic_fields": {
+        "NYU40": {
+          "nonzero_exact_agreement": 0.6901694915254237,
+          "nonzero_marginal_reference": 0.6386275208273484,
+          "lift": 0.05154197069807531
+        },
+        "Eigen13": {
+          "nonzero_exact_agreement": 0.7557535263548627,
+          "nonzero_marginal_reference": 0.7493382142615033,
+          "lift": 0.006415312093359438
+        },
+        "RIO27": {
+          "nonzero_exact_agreement": 0.6958904109589041,
+          "nonzero_marginal_reference": 0.6530493525989867,
+          "lift": 0.04284105835991747
+        }
+      },
+      "meets_fixed_semantic_coherence_rule": false
+    }
+  ],
+  "note": "This is an intersection with the 16 source relations listed in the paper and the 110 official-validation relations. It does not imply other official-train references were used by the paper's method, and registration outcomes are post hoc."
+}

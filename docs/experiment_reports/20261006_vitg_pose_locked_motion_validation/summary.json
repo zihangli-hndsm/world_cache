@@ -1,0 +1,48 @@
+{
+  "status": "complete",
+  "relations": 110,
+  "environments": 47,
+  "eligible_environments": 42,
+  "moved_rigid_queries": 14088,
+  "baseline_correct": 2876,
+  "method_correct": 3808,
+  "baseline_assigned": 4309,
+  "method_assigned": 7180,
+  "baseline_precision": 0.6674402413553029,
+  "method_precision": 0.5303621169916435,
+  "pooled_precision_delta": -0.1370781243636594,
+  "environment_bootstrap_pooled_precision_delta_ci95": [
+    -0.20593761390230683,
+    -0.033123754597263265
+  ],
+  "common_precision_environments": 28,
+  "common_environment_macro_precision_delta": -0.1117570041045884,
+  "common_environment_macro_precision_delta_ci95": [
+    -0.1773754966449064,
+    -0.05357804300304931
+  ],
+  "precision_bootstrap_samples": 20000,
+  "precision_bootstrap_seed": 10062027,
+  "rescued": 932,
+  "lost": 0,
+  "pooled_baseline_coverage": 0.20414537194775695,
+  "pooled_method_coverage": 0.27030096536059056,
+  "pooled_delta": 0.06615559341283361,
+  "environment_macro_delta": 0.08219849147075386,
+  "environment_macro_delta_ci95": [
+    0.039845955267824223,
+    0.13875080736404033
+  ],
+  "paired_environment_pooled_delta_ci95": [
+    0.045432708659489916,
+    0.0953417917450154
+  ],
+  "environments_method_better": 20,
+  "environments_tied": 22,
+  "environments_method_worse": 0,
+  "strict_pose_successes_locked": 2,
+  "strict_pose_successes_after": 2,
+  "bootstrap_unit": "official validation environment; all relations from an environment stay together",
+  "bootstrap_samples": 20000,
+  "bootstrap_seed": 10062026
+}

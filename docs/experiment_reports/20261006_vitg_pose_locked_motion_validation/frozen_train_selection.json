@@ -1,0 +1,8 @@
+{
+  "modes": 4,
+  "margin_m": 0.15,
+  "min_independent_support": 32,
+  "training_relations": 16,
+  "seed": 17,
+  "source_artifact": "outputs/reports/20260929_multimotion_seed_robustness/seed_17/source_lopo_selection.csv"
+}

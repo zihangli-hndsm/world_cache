@@ -21,14 +21,27 @@ outputs/reports/*
 !outputs/reports/20260923_review_update.md
 !outputs/reports/20260923_review_figures/
 !outputs/reports/20260923_review_figures/**
+!outputs/reports/20260929_validation_access/
+outputs/reports/20260929_validation_access/*
+!outputs/reports/20260929_validation_access/validation_scan_manifest.csv
 
 # LaTeX build products are reproducible and should not enter source commits.
 paper/*.aux
 paper/*.log
 paper/*.out
+paper/*.pdf
+paper/*.bbl
+paper/*.blg
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.synctex.gz
+paper/*.toc
+paper/*.lof
+paper/*.lot
 outputs/day1_alignment_examples/
 data/
 checkpoints/
+outputs/envs/
 wandb/
 
 # Local research bookkeeping and prompt material; keep these out of a public
@@ -37,6 +50,20 @@ logs/
 SESSION_STATE.md
 SESSION_HANDOFF.md
 external_prompts/
+SESSION_HANDOFF_*.md
+SESSION_PLAN.md
+TWO_WEEK_EXPLORATION_PLAN.md
+WORLD_CACHE_FINDINGS.md
+scripts/session_start.sh
+scripts/session_end.sh
+
+# Local archives, upstream checkouts, and their nested Git metadata are not
+# part of this repository's source release. See third_party/README.md.
+outputs/archive/
+third_party/BUFFER-X/
+third_party/crossover/
+third_party/remind_reid/
+third_party/segmast3r/
 
 !outputs/runs/.gitkeep
 !outputs/plots/.gitkeep

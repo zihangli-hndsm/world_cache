@@ -1,0 +1,10 @@
+{
+  "dataset_revision": "c62c9aad850a8638ac3e42605926a65707600125",
+  "subset_manifest": "../quota_subset_manifest.json",
+  "model_revision": "dd22bb6485eeb29d67273f76d983061298bdc7f0",
+  "model_weights_sha256": "949077749c7a414f3443a007cf021d085bc11deb0b08959a6e32e170b1e8e359",
+  "model_load_seconds": 22.94137488899287,
+  "environment_count": 17,
+  "predictions_saved_before_label_scoring": true,
+  "completed_at_utc": "2026-10-12T01:34:23Z"
+}

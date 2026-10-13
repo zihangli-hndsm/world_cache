@@ -1,0 +1,72 @@
+{
+  "status": "complete",
+  "estimand": "nested source-reference-group and validation-reference-group bootstrap; source threshold refit in each source draw, validation DINO-minus-REMIND paired effects evaluated at that draw's threshold",
+  "source_group_count": 8,
+  "validation_group_count": 47,
+  "original_source_group_count": 8,
+  "original_validation_group_count": 47,
+  "excluded_source_uuids": [],
+  "excluded_validation_uuids": [],
+  "source_target_macro_precision": 0.9,
+  "source_candidate_threshold_count": 929,
+  "draws_requested": 10000,
+  "draws_feasible": 10000,
+  "infeasible_source_fit_fraction": 0.0,
+  "seed": 20261014,
+  "fitted_threshold_distribution": {
+    "median": 0.7891765236854553,
+    "percentile_95": [
+      0.7738748788833618,
+      0.8283636569976807
+    ],
+    "percentile_98_75": [
+      0.7706955075263977,
+      0.8388622999191284
+    ],
+    "unique_thresholds": 85
+  },
+  "validation_macro_precision": {
+    "median": 0.8759329778330723,
+    "percentile_95": [
+      0.839216575664708,
+      0.92524390214263
+    ]
+  },
+  "validation_paired_precision_difference": {
+    "median": 0.05973638241978879,
+    "percentile_95": [
+      0.015065819810925037,
+      0.119449657130539
+    ],
+    "two_outcome_adjusted_percentile_95": [
+      0.00977241090023362,
+      0.1292560495323685
+    ],
+    "draws_with_all_sampled_groups_accepting": 10000,
+    "precision_defined_on_accepting_sampled_groups_only": true
+  },
+  "validation_paired_coverage_difference": {
+    "median": 0.17826030914347013,
+    "percentile_95": [
+      0.08543796070730994,
+      0.2210320332842485
+    ],
+    "two_outcome_adjusted_percentile_95": [
+      0.06620209461167889,
+      0.22766849637630265
+    ]
+  },
+  "validation_dino_correct_coverage": {
+    "median": 0.28867972557509536,
+    "percentile_95": [
+      0.19075387622950185,
+      0.3405553021304792
+    ]
+  },
+  "limits": [
+    "Only 8 source reference groups support threshold fitting; the cluster bootstrap is a sensitivity analysis, not a finite-sample guarantee.",
+    "The precision contrast conditions on sampled groups with at least one accepted DINO assignment if a refitted threshold accepts none in a group; the number of such groups is recorded per draw.",
+    "Validation is the previously explored 3RScan cohort with privileged masks; this does not establish independent-site generalization.",
+    "This uncertainty analysis does not correct potential physical-content overlap between the source and validation references."
+  ]
+}

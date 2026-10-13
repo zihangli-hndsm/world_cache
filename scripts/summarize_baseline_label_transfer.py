@@ -23,6 +23,8 @@ def mean_iou(ground_truth: np.ndarray, prediction: np.ndarray) -> float:
 
 
 def metrics(frame: pd.DataFrame, retained: np.ndarray) -> dict[str, float]:
+    # The legacy *_instance_* columns in these saved diagnostics compare
+    # 3RScan PLY globalId values (semantic labels), not physical objectId IDs.
     selected = frame.loc[retained]
     count = len(selected)
     if count == 0:
@@ -125,7 +127,7 @@ def latex_table(summary: pd.DataFrame) -> str:
     lines = [
         r"\begin{tabular}{lrrrr}",
         r"\toprule",
-        r"Dataset / matcher & Cov. & Sem. mIoU & Inst. mIoU & Sem. acc. \\",
+        r"Dataset / matcher & Cov. & Sem. mIoU & Global-label mIoU & Sem. acc. \\",
         r" & (\%) & (\%) & (\%) & (\%) \\",
         r"\midrule",
     ]

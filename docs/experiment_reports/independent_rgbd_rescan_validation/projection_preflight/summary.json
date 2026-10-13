@@ -1,0 +1,12 @@
+{
+  "dataset_revision": "c62c9aad850a8638ac3e42605926a65707600125",
+  "subset_manifest": "../quota_subset_manifest.json",
+  "sample_count_per_scan": 72,
+  "projection_gate_m": 0.05,
+  "scan_count": 34,
+  "environment_count": 17,
+  "passing_scan_count": 34,
+  "passing_relation_count": 17,
+  "failed_relation_count": 0,
+  "completed_at_utc": "2026-10-12T01:07:24.244678+00:00"
+}

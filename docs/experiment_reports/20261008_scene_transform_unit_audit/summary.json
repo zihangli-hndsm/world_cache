@@ -1,0 +1,9 @@
+{
+  "relations": 110,
+  "raw_forward_better_median_relations": 109,
+  "raw_forward_better_5cm_support_relations": 110,
+  "median_relation_raw_forward_median_m": 0.039061960704999434,
+  "median_relation_scaled_001_forward_median_m": 0.36488544784100674,
+  "scope": "evaluation-only geometric consistency audit; no fitted registration or descriptor use",
+  "interpretation": "compare observed static-surface alignment against the documentation; do not select scale separately for each relation"
+}

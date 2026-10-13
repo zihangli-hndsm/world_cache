@@ -13,6 +13,7 @@ requires-python = ">=3.9,<3.10"
 [project.optional-dependencies]
 test = ["pytest"]
 vision = ["torch", "torchvision", "timm>=1.0,<2"]
+obchange = ["open3d>=0.18", "rosbags>=0.9.23,<0.10"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

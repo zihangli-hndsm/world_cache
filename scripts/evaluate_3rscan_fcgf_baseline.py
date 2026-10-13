@@ -210,7 +210,7 @@ def collect_cloud(pair_run: Path, entries: list[dict[str, object]]) -> np.ndarra
     return np.concatenate(points, axis=0).astype(np.float64)
 
 
-def evaluate(args: argparse.Namespace) -> tuple[list[dict[str, object]], dict[int, list[dict[str, object]]]]:
+def evaluate(args: argparse.Namespace) -> tuple[list[dict[str, object]], dict[tuple[int, int], list[dict[str, object]]]]:
     config = json.loads((args.pair_run / "config.json").read_text(encoding="utf-8"))
     if config.get("coordinate_convention") != "native_scan_frames":
         raise ValueError("pair manifest must store native scan coordinates; run migrate_3rscan_rescan_coordinates.py")
@@ -259,56 +259,60 @@ def evaluate(args: argparse.Namespace) -> tuple[list[dict[str, object]], dict[in
 
     scores = torch.from_numpy(query_features_eval) @ torch.from_numpy(reference_features_eval.T)
     rows: list[dict[str, object]] = []
-    diagnostics: dict[int, list[dict[str, object]]] = {}
+    diagnostics: dict[tuple[int, int], list[dict[str, object]]] = {}
     for top_k in args.top_k:
         _, top_indices = torch.topk(scores, k=min(top_k, scores.shape[1]), dim=1)
-        matrix, selected, inliers = consensus(
-            query_points,
-            reference_points,
-            top_indices.cpu().numpy(),
-            args.threshold,
-            args.iterations,
-            args.seed,
-        )
-        transformed = transform_points(query_points, matrix)
-        residuals = np.linalg.norm(transformed - reference_points[selected], axis=1)
-        evaluated_inliers = inliers & query_evaluable
-        evaluated_query_count = int(query_evaluable.sum())
-        rotation_error = Rotation.from_matrix(matrix[:3, :3].T @ rescan_to_reference[:3, :3]).magnitude()
-        translation_error = np.linalg.norm(matrix[:3, 3] - rescan_to_reference[:3, 3])
-        rows.append(
-            {
-                "pair": args.pair_run.name,
-                "top_k": top_k,
-                "reference_queries": len(reference_points),
-                "query_queries": evaluated_query_count,
-                "matching_query_points": len(query_points),
-                "matching_inliers": int(inliers.sum()),
-                "inliers": int(evaluated_inliers.sum()),
-                "inlier_coverage": float(evaluated_inliers.sum() / evaluated_query_count) if evaluated_query_count else 0.0,
-                "inlier_instance_accuracy": float(np.mean(reference_ids[selected[evaluated_inliers]] == query_ids[evaluated_inliers])) if evaluated_inliers.any() else float("nan"),
-                "inlier_semantic_accuracy": float(np.mean(reference_semantics_eval[selected[evaluated_inliers]] == query_semantics_eval[evaluated_inliers])) if evaluated_inliers.any() else float("nan"),
-                "median_inlier_residual_m": float(np.median(residuals[evaluated_inliers])) if evaluated_inliers.any() else float("nan"),
-                "rotation_error_deg": float(np.degrees(rotation_error)),
-                "translation_error_m": float(translation_error),
-                "pose_success_lt5deg_lt025m": bool(np.degrees(rotation_error) < 5.0 and translation_error < 0.25),
-                "voxel_size_m": args.voxel_size,
-                "checkpoint": str(args.checkpoint),
-                "model_config": json.dumps(model_config, sort_keys=True),
-            }
-        )
-        diagnostics[top_k] = [
-            {
-                "query_semantic_id": int(query_semantics_eval[index]),
-                "selected_reference_semantic_id": int(reference_semantics_eval[selected[index]]),
-                "query_instance_id": int(query_ids[index]),
-                "selected_reference_instance_id": int(reference_ids[selected[index]]),
-                "query_evaluable": bool(query_evaluable[index]),
-                "consensus_inlier": bool(inliers[index]),
-                "spatial_residual_m": float(residuals[index]),
-            }
-            for index in range(len(query_points))
-        ]
+        for seed in args.seeds:
+            matrix, selected, inliers = consensus(
+                query_points,
+                reference_points,
+                top_indices.cpu().numpy(),
+                args.threshold,
+                args.iterations,
+                seed,
+            )
+            transformed = transform_points(query_points, matrix)
+            residuals = np.linalg.norm(transformed - reference_points[selected], axis=1)
+            evaluated_inliers = inliers & query_evaluable
+            evaluated_query_count = int(query_evaluable.sum())
+            rotation_error = Rotation.from_matrix(matrix[:3, :3].T @ rescan_to_reference[:3, :3]).magnitude()
+            translation_error = np.linalg.norm(matrix[:3, 3] - rescan_to_reference[:3, 3])
+            np.save(args.output_dir / f"predicted_pose_k{top_k}_seed{seed}.npy", matrix)
+            rows.append(
+                {
+                    "pair": args.pair_run.name,
+                    "top_k": top_k,
+                    "ransac_seed": seed,
+                    "reference_queries": len(reference_points),
+                    "query_queries": evaluated_query_count,
+                    "matching_query_points": len(query_points),
+                    "matching_inliers": int(inliers.sum()),
+                    "inliers": int(evaluated_inliers.sum()),
+                    "inlier_coverage": float(evaluated_inliers.sum() / evaluated_query_count) if evaluated_query_count else 0.0,
+                    "inlier_instance_accuracy": float(np.mean(reference_ids[selected[evaluated_inliers]] == query_ids[evaluated_inliers])) if evaluated_inliers.any() else float("nan"),
+                    "inlier_semantic_accuracy": float(np.mean(reference_semantics_eval[selected[evaluated_inliers]] == query_semantics_eval[evaluated_inliers])) if evaluated_inliers.any() else float("nan"),
+                    "median_inlier_residual_m": float(np.median(residuals[evaluated_inliers])) if evaluated_inliers.any() else float("nan"),
+                    "rotation_error_deg": float(np.degrees(rotation_error)),
+                    "translation_error_m": float(translation_error),
+                    "pose_success_lt5deg_lt025m": bool(np.degrees(rotation_error) < 5.0 and translation_error < 0.25),
+                    "voxel_size_m": args.voxel_size,
+                    "checkpoint": str(args.checkpoint),
+                    "model_config": json.dumps(model_config, sort_keys=True),
+                }
+            )
+            diagnostics[(top_k, seed)] = [
+                {
+                    "query_index": index,
+                    "query_semantic_id": int(query_semantics_eval[index]),
+                    "selected_reference_semantic_id": int(reference_semantics_eval[selected[index]]),
+                    "query_instance_id": int(query_ids[index]),
+                    "selected_reference_instance_id": int(reference_ids[selected[index]]),
+                    "query_evaluable": bool(query_evaluable[index]),
+                    "consensus_inlier": bool(inliers[index]),
+                    "spatial_residual_m": float(residuals[index]),
+                }
+                for index in range(len(query_points))
+            ]
     return rows, diagnostics
 
 
@@ -328,9 +332,13 @@ def main() -> None:
     parser.add_argument("--threshold", type=float, default=0.10)
     parser.add_argument("--iterations", type=int, default=3000)
     parser.add_argument("--seed", type=int, default=17)
+    parser.add_argument("--seed-sweep", type=int, nargs="+", help="evaluate several fixed RANSAC seeds after one feature extraction")
     parser.add_argument("--save-query-diagnostics", action="store_true")
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
+    args.seeds = args.seed_sweep if args.seed_sweep is not None else [args.seed]
+    if not args.seeds or len(set(args.seeds)) != len(args.seeds):
+        raise ValueError("RANSAC seeds must be non-empty and unique")
     rows, diagnostics = evaluate(args)
     with (args.output_dir / "summary.csv").open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
@@ -343,6 +351,7 @@ def main() -> None:
                 "known_alignment_used_for_selection": False,
                 "protocol": "same 14-pixel sample, top-K descriptor candidates, 0.10m spatial-consensus RANSAC",
                 "top_k": args.top_k,
+                "ransac_seeds": args.seeds,
                 "voxel_size_m": args.voxel_size,
                 "query_diagnostics_saved": args.save_query_diagnostics,
             },
@@ -352,8 +361,13 @@ def main() -> None:
         encoding="utf-8",
     )
     if args.save_query_diagnostics:
-        for top_k, diagnostic_rows in diagnostics.items():
-            with (args.output_dir / f"query_diagnostics_k{top_k}.csv").open(
+        for (top_k, seed), diagnostic_rows in diagnostics.items():
+            diagnostic_name = (
+                f"query_diagnostics_k{top_k}.csv"
+                if args.seed_sweep is None
+                else f"query_diagnostics_k{top_k}_seed{seed}.csv"
+            )
+            with (args.output_dir / diagnostic_name).open(
                 "w", newline="", encoding="utf-8"
             ) as handle:
                 writer = csv.DictWriter(handle, fieldnames=list(diagnostic_rows[0]))

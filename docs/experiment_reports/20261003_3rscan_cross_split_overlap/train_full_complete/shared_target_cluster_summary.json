@@ -1,0 +1,553 @@
+{
+  "status": "exploratory_post_hoc",
+  "created_utc": "2026-10-04T00:40:49.308745+00:00",
+  "shared_validation_target": "4fbad31e-465b-2a5d-84b7-c0ddea978db4",
+  "pairwise_comparison_count": 10,
+  "directed_comparison_count": 20,
+  "train_source_ids": [
+    "0f2f271b-b736-2f71-8f3a-e9265463abcb",
+    "4a9a43e4-7736-2874-8479-0e81135ccdb0",
+    "4fbad31a-465b-2a5d-8566-f4e4845c1a78",
+    "5555108d-36f1-29c0-8b37-5efa2bef59d4",
+    "d7d40d5c-7a5d-2b36-9433-ee98b893988d"
+  ],
+  "directed_coverage_range": [
+    0.06693921374297984,
+    0.13452740843789293
+  ],
+  "nonzero_class_exact_agreement_range": [
+    0.7317247969421883,
+    0.8664282709297434
+  ],
+  "nonzero_class_marginal_reference_range": [
+    0.1462112505274128,
+    0.26509983916144775
+  ],
+  "nonzero_class_lift_range": [
+    0.5375383242623399,
+    0.7007660794473983
+  ],
+  "pairwise_comparisons": [
+    {
+      "source_a": "0f2f271b-b736-2f71-8f3a-e9265463abcb",
+      "source_b": "4a9a43e4-7736-2874-8479-0e81135ccdb0",
+      "directions": [
+        {
+          "label": "A to B",
+          "source_coverage": 0.09460687148992401,
+          "matched_point_count": 9164,
+          "rgb_exact_agreement": 0.21377127891750328,
+          "class_metrics": {
+            "NYU40": {
+              "nonzero_exact_agreement": 0.7615100257645345,
+              "nonzero_marginal_reference": 0.1764510038476081,
+              "nonzero_lift": 0.5850590219169265
+            },
+            "Eigen13": {
+              "nonzero_exact_agreement": 0.7630642175708386,
+              "nonzero_marginal_reference": 0.22113602487820525,
+              "nonzero_lift": 0.5419281926926334
+            },
+            "RIO27": {
+              "nonzero_exact_agreement": 0.7980284530077294,
+              "nonzero_marginal_reference": 0.19109716441044672,
+              "nonzero_lift": 0.6069312885972826
+            }
+          }
+        },
+        {
+          "label": "B to A",
+          "source_coverage": 0.08441086600089433,
+          "matched_point_count": 9061,
+          "rgb_exact_agreement": 0.1887208917338042,
+          "class_metrics": {
+            "NYU40": {
+              "nonzero_exact_agreement": 0.7488667271078876,
+              "nonzero_marginal_reference": 0.17251947832047934,
+              "nonzero_lift": 0.5763472487874083
+            },
+            "Eigen13": {
+              "nonzero_exact_agreement": 0.7536960378474276,
+              "nonzero_marginal_reference": 0.21615771358508762,
+              "nonzero_lift": 0.5375383242623399
+            },
+            "RIO27": {
+              "nonzero_exact_agreement": 0.7949909338168631,
+              "nonzero_marginal_reference": 0.18762759594495848,
+              "nonzero_lift": 0.6073633378719047
+            }
+          }
+        }
+      ]
+    },
+    {
+      "source_a": "0f2f271b-b736-2f71-8f3a-e9265463abcb",
+      "source_b": "4fbad31a-465b-2a5d-8566-f4e4845c1a78",
+      "directions": [
+        {
+          "label": "A to B",
+          "source_coverage": 0.11875412950115626,
+          "matched_point_count": 11503,
+          "rgb_exact_agreement": 0.1720420759801791,
+          "class_metrics": {
+            "NYU40": {
+              "nonzero_exact_agreement": 0.7883706412200124,
+              "nonzero_marginal_reference": 0.15771967773611054,
+              "nonzero_lift": 0.6306509634839019
+            },
+            "Eigen13": {
+              "nonzero_exact_agreement": 0.8061236279607163,
+              "nonzero_marginal_reference": 0.18635132415620148,
+              "nonzero_lift": 0.6197723038045149
+            },
+            "RIO27": {
+              "nonzero_exact_agreement": 0.8454212454212454,
+              "nonzero_marginal_reference": 0.17015754773309716,
+              "nonzero_lift": 0.6752636976881483
+            }
+          }
+        },
+        {
+          "label": "B to A",
+          "source_coverage": 0.0981805032500463,
+          "matched_point_count": 11132,
+          "rgb_exact_agreement": 0.18136902623068632,
+          "class_metrics": {
+            "NYU40": {
+              "nonzero_exact_agreement": 0.7705189547294811,
+              "nonzero_marginal_reference": 0.15275107933540222,
+              "nonzero_lift": 0.6177678753940788
+            },
+            "Eigen13": {
+              "nonzero_exact_agreement": 0.7862128076405045,
+              "nonzero_marginal_reference": 0.1763609531644048,
+              "nonzero_lift": 0.6098518544760997
+            },
+            "RIO27": {
+              "nonzero_exact_agreement": 0.8328465089983982,
+              "nonzero_marginal_reference": 0.15898078522462966,
+              "nonzero_lift": 0.6738657237737685
+            }
+          }
+        }
+      ]
+    },
+    {
+      "source_a": "0f2f271b-b736-2f71-8f3a-e9265463abcb",
+      "source_b": "5555108d-36f1-29c0-8b37-5efa2bef59d4",
+      "directions": [
+        {
+          "label": "A to B",
+          "source_coverage": 0.06693921374297984,
+          "matched_point_count": 6484,
+          "rgb_exact_agreement": 0.28038247995064774,
+          "class_metrics": {
+            "NYU40": {
+              "nonzero_exact_agreement": 0.747792583079146,
+              "nonzero_marginal_reference": 0.17937218806353256,
+              "nonzero_lift": 0.5684203950156135
+            },
+            "Eigen13": {
+              "nonzero_exact_agreement": 0.7971071923915197,
+              "nonzero_marginal_reference": 0.22476173935287666,
+              "nonzero_lift": 0.572345453038643
+            },
+            "RIO27": {
+              "nonzero_exact_agreement": 0.839139508749398,
+              "nonzero_marginal_reference": 0.21113798680793344,
+              "nonzero_lift": 0.6280015219414645
+            }
+          }
+        },
+        {
+          "label": "B to A",
+          "source_coverage": 0.08251959656491613,
+          "matched_point_count": 6169,
+          "rgb_exact_agreement": 0.29469930296644514,
+          "class_metrics": {
+            "NYU40": {
+              "nonzero_exact_agreement": 0.7704286671131949,
+              "nonzero_marginal_reference": 0.18195587557743234,
+              "nonzero_lift": 0.5884727915357626
+            },
+            "Eigen13": {
+              "nonzero_exact_agreement": 0.8194532739987286,
+              "nonzero_marginal_reference": 0.2302033309951012,
+              "nonzero_lift": 0.5892499430036273
+            },
+            "RIO27": {
+              "nonzero_exact_agreement": 0.8638647019423978,
+              "nonzero_marginal_reference": 0.20424436048736477,
+              "nonzero_lift": 0.659620341455033
+            }
+          }
+        }
+      ]
+    },
+    {
+      "source_a": "4a9a43e4-7736-2874-8479-0e81135ccdb0",
+      "source_b": "4fbad31a-465b-2a5d-8566-f4e4845c1a78",
+      "directions": [
+        {
+          "label": "A to B",
+          "source_coverage": 0.11180876434640036,
+          "matched_point_count": 12002,
+          "rgb_exact_agreement": 0.2888685219130145,
+          "class_metrics": {
+            "NYU40": {
+              "nonzero_exact_agreement": 0.773509027124155,
+              "nonzero_marginal_reference": 0.1686581437951361,
+              "nonzero_lift": 0.6048508833290189
+            },
+            "Eigen13": {
+              "nonzero_exact_agreement": 0.7491896725159272,
+              "nonzero_marginal_reference": 0.20382277018012848,
+              "nonzero_lift": 0.5453669023357987
+            },
+            "RIO27": {
+              "nonzero_exact_agreement": 0.7917810569663692,
+              "nonzero_marginal_reference": 0.16759306273079247,
+              "nonzero_lift": 0.6241879942355768
+            }
+          }
+        },
+        {
+          "label": "B to A",
+          "source_coverage": 0.1034370231868975,
+          "matched_point_count": 11728,
+          "rgb_exact_agreement": 0.3121589358799454,
+          "class_metrics": {
+            "NYU40": {
+              "nonzero_exact_agreement": 0.774814167031045,
+              "nonzero_marginal_reference": 0.16518441433099654,
+              "nonzero_lift": 0.6096297527000485
+            },
+            "Eigen13": {
+              "nonzero_exact_agreement": 0.751027397260274,
+              "nonzero_marginal_reference": 0.1978403025374784,
+              "nonzero_lift": 0.5531870947227956
+            },
+            "RIO27": {
+              "nonzero_exact_agreement": 0.7940736832849732,
+              "nonzero_marginal_reference": 0.16377338028709224,
+              "nonzero_lift": 0.630300302997881
+            }
+          }
+        }
+      ]
+    },
+    {
+      "source_a": "4a9a43e4-7736-2874-8479-0e81135ccdb0",
+      "source_b": "5555108d-36f1-29c0-8b37-5efa2bef59d4",
+      "directions": [
+        {
+          "label": "A to B",
+          "source_coverage": 0.09244112386346698,
+          "matched_point_count": 9923,
+          "rgb_exact_agreement": 0.3554368638516578,
+          "class_metrics": {
+            "NYU40": {
+              "nonzero_exact_agreement": 0.7737687921202696,
+              "nonzero_marginal_reference": 0.19459303995844174,
+              "nonzero_lift": 0.5791757521618279
+            },
+            "Eigen13": {
+              "nonzero_exact_agreement": 0.8247158049138247,
+              "nonzero_marginal_reference": 0.24029759044844712,
+              "nonzero_lift": 0.5844182144653776
+            },
+            "RIO27": {
+              "nonzero_exact_agreement": 0.8143079315707621,
+              "nonzero_marginal_reference": 0.207137303781388,
+              "nonzero_lift": 0.607170627789374
+            }
+          }
+        },
+        {
+          "label": "B to A",
+          "source_coverage": 0.13452740843789293,
+          "matched_point_count": 10057,
+          "rgb_exact_agreement": 0.40021875310728844,
+          "class_metrics": {
+            "NYU40": {
+              "nonzero_exact_agreement": 0.8037716615698267,
+              "nonzero_marginal_reference": 0.21326915783162453,
+              "nonzero_lift": 0.5905025037382021
+            },
+            "Eigen13": {
+              "nonzero_exact_agreement": 0.8420107719928187,
+              "nonzero_marginal_reference": 0.26509983916144775,
+              "nonzero_lift": 0.576910932831371
+            },
+            "RIO27": {
+              "nonzero_exact_agreement": 0.8465851172273191,
+              "nonzero_marginal_reference": 0.2233099948979645,
+              "nonzero_lift": 0.6232751223293547
+            }
+          }
+        }
+      ]
+    },
+    {
+      "source_a": "4fbad31a-465b-2a5d-8566-f4e4845c1a78",
+      "source_b": "5555108d-36f1-29c0-8b37-5efa2bef59d4",
+      "directions": [
+        {
+          "label": "A to B",
+          "source_coverage": 0.0752493760087491,
+          "matched_point_count": 8532,
+          "rgb_exact_agreement": 0.35654008438818563,
+          "class_metrics": {
+            "NYU40": {
+              "nonzero_exact_agreement": 0.7317247969421883,
+              "nonzero_marginal_reference": 0.1693362530300875,
+              "nonzero_lift": 0.5623885439121008
+            },
+            "Eigen13": {
+              "nonzero_exact_agreement": 0.7925184862983906,
+              "nonzero_marginal_reference": 0.20774227390168168,
+              "nonzero_lift": 0.584776212396709
+            },
+            "RIO27": {
+              "nonzero_exact_agreement": 0.7613158842598151,
+              "nonzero_marginal_reference": 0.18110442763410223,
+              "nonzero_lift": 0.5802114566257128
+            }
+          }
+        },
+        {
+          "label": "B to A",
+          "source_coverage": 0.10515262580593382,
+          "matched_point_count": 7861,
+          "rgb_exact_agreement": 0.3607683500826867,
+          "class_metrics": {
+            "NYU40": {
+              "nonzero_exact_agreement": 0.7486395439232962,
+              "nonzero_marginal_reference": 0.17047060744038983,
+              "nonzero_lift": 0.5781689364829063
+            },
+            "Eigen13": {
+              "nonzero_exact_agreement": 0.7958156363064338,
+              "nonzero_marginal_reference": 0.2090083431554261,
+              "nonzero_lift": 0.5868072931510078
+            },
+            "RIO27": {
+              "nonzero_exact_agreement": 0.7851293383595477,
+              "nonzero_marginal_reference": 0.18552353426109236,
+              "nonzero_lift": 0.5996058040984553
+            }
+          }
+        }
+      ]
+    },
+    {
+      "source_a": "d7d40d5c-7a5d-2b36-9433-ee98b893988d",
+      "source_b": "0f2f271b-b736-2f71-8f3a-e9265463abcb",
+      "directions": [
+        {
+          "label": "A to B",
+          "source_coverage": 0.09558176021053696,
+          "matched_point_count": 9443,
+          "rgb_exact_agreement": 0.18362808429524516,
+          "class_metrics": {
+            "NYU40": {
+              "nonzero_exact_agreement": 0.7567746930649264,
+              "nonzero_marginal_reference": 0.14887873124926926,
+              "nonzero_lift": 0.6078959618156572
+            },
+            "Eigen13": {
+              "nonzero_exact_agreement": 0.824306664730652,
+              "nonzero_marginal_reference": 0.1759317669928565,
+              "nonzero_lift": 0.6483748977377954
+            },
+            "RIO27": {
+              "nonzero_exact_agreement": 0.8527374301675977,
+              "nonzero_marginal_reference": 0.15729009706313785,
+              "nonzero_lift": 0.6954473331044599
+            }
+          }
+        },
+        {
+          "label": "B to A",
+          "source_coverage": 0.1025664849686158,
+          "matched_point_count": 9935,
+          "rgb_exact_agreement": 0.1937594363361852,
+          "class_metrics": {
+            "NYU40": {
+              "nonzero_exact_agreement": 0.7920058442913797,
+              "nonzero_marginal_reference": 0.16218227699513643,
+              "nonzero_lift": 0.6298235672962432
+            },
+            "Eigen13": {
+              "nonzero_exact_agreement": 0.8548605469807744,
+              "nonzero_marginal_reference": 0.1944579359124474,
+              "nonzero_lift": 0.660402611068327
+            },
+            "RIO27": {
+              "nonzero_exact_agreement": 0.8664282709297434,
+              "nonzero_marginal_reference": 0.17432638484891227,
+              "nonzero_lift": 0.6921018860808311
+            }
+          }
+        }
+      ]
+    },
+    {
+      "source_a": "d7d40d5c-7a5d-2b36-9433-ee98b893988d",
+      "source_b": "4a9a43e4-7736-2874-8479-0e81135ccdb0",
+      "directions": [
+        {
+          "label": "A to B",
+          "source_coverage": 0.132941950503568,
+          "matched_point_count": 13134,
+          "rgb_exact_agreement": 0.34673366834170855,
+          "class_metrics": {
+            "NYU40": {
+              "nonzero_exact_agreement": 0.8107196107666954,
+              "nonzero_marginal_reference": 0.16868759073743753,
+              "nonzero_lift": 0.6420320200292579
+            },
+            "Eigen13": {
+              "nonzero_exact_agreement": 0.7943916258523,
+              "nonzero_marginal_reference": 0.20640651622883213,
+              "nonzero_lift": 0.587985109623468
+            },
+            "RIO27": {
+              "nonzero_exact_agreement": 0.8267326732673267,
+              "nonzero_marginal_reference": 0.1693718725277256,
+              "nonzero_lift": 0.6573608007396011
+            }
+          }
+        },
+        {
+          "label": "B to A",
+          "source_coverage": 0.1285866000894321,
+          "matched_point_count": 13803,
+          "rgb_exact_agreement": 0.34717090487575164,
+          "class_metrics": {
+            "NYU40": {
+              "nonzero_exact_agreement": 0.8002703108574861,
+              "nonzero_marginal_reference": 0.16910941049694764,
+              "nonzero_lift": 0.6311609003605385
+            },
+            "Eigen13": {
+              "nonzero_exact_agreement": 0.783913002718665,
+              "nonzero_marginal_reference": 0.20763194662869514,
+              "nonzero_lift": 0.5762810560899699
+            },
+            "RIO27": {
+              "nonzero_exact_agreement": 0.8172188415596123,
+              "nonzero_marginal_reference": 0.16940212810029037,
+              "nonzero_lift": 0.647816713459322
+            }
+          }
+        }
+      ]
+    },
+    {
+      "source_a": "d7d40d5c-7a5d-2b36-9433-ee98b893988d",
+      "source_b": "4fbad31a-465b-2a5d-8566-f4e4845c1a78",
+      "directions": [
+        {
+          "label": "A to B",
+          "source_coverage": 0.12983450579482766,
+          "matched_point_count": 12827,
+          "rgb_exact_agreement": 0.2126763857488111,
+          "class_metrics": {
+            "NYU40": {
+              "nonzero_exact_agreement": 0.8230455961031702,
+              "nonzero_marginal_reference": 0.15086924399917057,
+              "nonzero_lift": 0.6721763521039996
+            },
+            "Eigen13": {
+              "nonzero_exact_agreement": 0.8303271812080537,
+              "nonzero_marginal_reference": 0.18209383735881832,
+              "nonzero_lift": 0.6482333438492354
+            },
+            "RIO27": {
+              "nonzero_exact_agreement": 0.8365673459446293,
+              "nonzero_marginal_reference": 0.14860292359776914,
+              "nonzero_lift": 0.6879644223468602
+            }
+          }
+        },
+        {
+          "label": "B to A",
+          "source_coverage": 0.11696638825926285,
+          "matched_point_count": 13262,
+          "rgb_exact_agreement": 0.23028200874679536,
+          "class_metrics": {
+            "NYU40": {
+              "nonzero_exact_agreement": 0.828961580003086,
+              "nonzero_marginal_reference": 0.1481319256808997,
+              "nonzero_lift": 0.6808296543221862
+            },
+            "Eigen13": {
+              "nonzero_exact_agreement": 0.8406262961426794,
+              "nonzero_marginal_reference": 0.17406243564982218,
+              "nonzero_lift": 0.6665638604928572
+            },
+            "RIO27": {
+              "nonzero_exact_agreement": 0.8469773299748111,
+              "nonzero_marginal_reference": 0.1462112505274128,
+              "nonzero_lift": 0.7007660794473983
+            }
+          }
+        }
+      ]
+    },
+    {
+      "source_a": "d7d40d5c-7a5d-2b36-9433-ee98b893988d",
+      "source_b": "5555108d-36f1-29c0-8b37-5efa2bef59d4",
+      "directions": [
+        {
+          "label": "A to B",
+          "source_coverage": 0.08511564350422592,
+          "matched_point_count": 8409,
+          "rgb_exact_agreement": 0.3692472351052444,
+          "class_metrics": {
+            "NYU40": {
+              "nonzero_exact_agreement": 0.7697998787143724,
+              "nonzero_marginal_reference": 0.19333827841340157,
+              "nonzero_lift": 0.5764616003009708
+            },
+            "Eigen13": {
+              "nonzero_exact_agreement": 0.8225874420564686,
+              "nonzero_marginal_reference": 0.23460507554425486,
+              "nonzero_lift": 0.5879823665122137
+            },
+            "RIO27": {
+              "nonzero_exact_agreement": 0.7992709599027946,
+              "nonzero_marginal_reference": 0.20215180510505235,
+              "nonzero_lift": 0.5971191547977422
+            }
+          }
+        },
+        {
+          "label": "B to A",
+          "source_coverage": 0.11487733754247037,
+          "matched_point_count": 8588,
+          "rgb_exact_agreement": 0.3935724266418258,
+          "class_metrics": {
+            "NYU40": {
+              "nonzero_exact_agreement": 0.7808674985145574,
+              "nonzero_marginal_reference": 0.19511327316716853,
+              "nonzero_lift": 0.5857542253473889
+            },
+            "Eigen13": {
+              "nonzero_exact_agreement": 0.8208934517203108,
+              "nonzero_marginal_reference": 0.2389984198713724,
+              "nonzero_lift": 0.5818950318489384
+            },
+            "RIO27": {
+              "nonzero_exact_agreement": 0.8141361256544503,
+              "nonzero_marginal_reference": 0.20329494511011165,
+              "nonzero_lift": 0.6108411805443386
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "scope_note": "These source pairs were selected post hoc because they independently passed a geometric screen against the same validation reference. Matched-point outcomes are descriptive; spatial autocorrelation and selection are not accounted for, and this analysis does not prove that the scans depict the same physical site."
+}

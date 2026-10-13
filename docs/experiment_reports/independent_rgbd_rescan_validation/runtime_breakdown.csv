@@ -1,0 +1,10 @@
+stage,status,elapsed_seconds,details
+metadata_manifest,completed,4.276,"Official pinned file-tree metadata only; no archive payload transfer"
+projection_unit_test,completed,1.84,"1 passed; no candidate-scene projection"
+environment_probe,completed,4.7,"Python/PyTorch/timm/NumPy/Pillow and A100 availability"
+data_download,not_run,,"Hugging Face gated access unavailable; no token"
+data_decode,not_run,,"No candidate archives local"
+gpu_feature_extraction,not_run,,"No candidate RGB frames loaded; no model inference"
+cpu_matching_and_consensus,not_run,,"No descriptors or predictions"
+post_prediction_scoring,not_run,,"No predictions; annotations not read for scoring"
+environment_bootstrap,not_run,,"No scored environment outcomes"

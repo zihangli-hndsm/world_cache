@@ -1,0 +1,342 @@
+{
+  "selection_rule": "Take the longest lexicographically scene-sorted prefix of complete rooms in candidate_pairs.csv whose unique archive byte total does not exceed prefix_cap_bytes; do not use preflight or model outcomes for selection.",
+  "reason": "Deterministic capacity-limited exploratory subset frozen before projection or model outcomes; the subset is the longest lexicographically sorted prefix of complete rooms under the fixed byte cap.",
+  "prefix_cap_bytes": 40000000000,
+  "selected_scene_ids": [
+    "scene_00000",
+    "scene_00001",
+    "scene_00002",
+    "scene_00004",
+    "scene_00005",
+    "scene_00006",
+    "scene_00007",
+    "scene_00008",
+    "scene_00009",
+    "scene_00010",
+    "scene_00011",
+    "scene_00013",
+    "scene_00014",
+    "scene_00015",
+    "scene_00016",
+    "scene_00017",
+    "scene_00018"
+  ],
+  "scene_count": 17,
+  "relation_count": 17,
+  "archive_count": 34,
+  "archive_bytes": 39744374300,
+  "dataset_repository": "3dlg-hcvc/MultiScan",
+  "dataset_revision": "c62c9aad850a8638ac3e42605926a65707600125",
+  "candidate_pairs_sha256": "16abef8a4528639c9009ed8c7d03e373e37a87564d5fc7813902e0648d80aaee",
+  "relations": [
+    {
+      "scene_id": "scene_00000",
+      "environment_id": "scene_00000",
+      "reference_scan_id": "scene_00000_00",
+      "query_scan_id": "scene_00000_01"
+    },
+    {
+      "scene_id": "scene_00001",
+      "environment_id": "scene_00001",
+      "reference_scan_id": "scene_00001_00",
+      "query_scan_id": "scene_00001_01"
+    },
+    {
+      "scene_id": "scene_00002",
+      "environment_id": "scene_00002",
+      "reference_scan_id": "scene_00002_00",
+      "query_scan_id": "scene_00002_01"
+    },
+    {
+      "scene_id": "scene_00004",
+      "environment_id": "scene_00004",
+      "reference_scan_id": "scene_00004_00",
+      "query_scan_id": "scene_00004_01"
+    },
+    {
+      "scene_id": "scene_00005",
+      "environment_id": "scene_00005",
+      "reference_scan_id": "scene_00005_00",
+      "query_scan_id": "scene_00005_01"
+    },
+    {
+      "scene_id": "scene_00006",
+      "environment_id": "scene_00006",
+      "reference_scan_id": "scene_00006_00",
+      "query_scan_id": "scene_00006_01"
+    },
+    {
+      "scene_id": "scene_00007",
+      "environment_id": "scene_00007",
+      "reference_scan_id": "scene_00007_00",
+      "query_scan_id": "scene_00007_01"
+    },
+    {
+      "scene_id": "scene_00008",
+      "environment_id": "scene_00008",
+      "reference_scan_id": "scene_00008_00",
+      "query_scan_id": "scene_00008_01"
+    },
+    {
+      "scene_id": "scene_00009",
+      "environment_id": "scene_00009",
+      "reference_scan_id": "scene_00009_00",
+      "query_scan_id": "scene_00009_01"
+    },
+    {
+      "scene_id": "scene_00010",
+      "environment_id": "scene_00010",
+      "reference_scan_id": "scene_00010_00",
+      "query_scan_id": "scene_00010_01"
+    },
+    {
+      "scene_id": "scene_00011",
+      "environment_id": "scene_00011",
+      "reference_scan_id": "scene_00011_00",
+      "query_scan_id": "scene_00011_01"
+    },
+    {
+      "scene_id": "scene_00013",
+      "environment_id": "scene_00013",
+      "reference_scan_id": "scene_00013_00",
+      "query_scan_id": "scene_00013_01"
+    },
+    {
+      "scene_id": "scene_00014",
+      "environment_id": "scene_00014",
+      "reference_scan_id": "scene_00014_00",
+      "query_scan_id": "scene_00014_01"
+    },
+    {
+      "scene_id": "scene_00015",
+      "environment_id": "scene_00015",
+      "reference_scan_id": "scene_00015_00",
+      "query_scan_id": "scene_00015_01"
+    },
+    {
+      "scene_id": "scene_00016",
+      "environment_id": "scene_00016",
+      "reference_scan_id": "scene_00016_00",
+      "query_scan_id": "scene_00016_01"
+    },
+    {
+      "scene_id": "scene_00017",
+      "environment_id": "scene_00017",
+      "reference_scan_id": "scene_00017_00",
+      "query_scan_id": "scene_00017_01"
+    },
+    {
+      "scene_id": "scene_00018",
+      "environment_id": "scene_00018",
+      "reference_scan_id": "scene_00018_00",
+      "query_scan_id": "scene_00018_01"
+    }
+  ],
+  "archives": [
+    {
+      "filename": "scans/scene_00000_00.zip",
+      "size_bytes": 594277493,
+      "repo_blob_id": "521346910a12c639bc1253697fe698b0027cd96f",
+      "scene_id": "scene_00000"
+    },
+    {
+      "filename": "scans/scene_00000_01.zip",
+      "size_bytes": 783429134,
+      "repo_blob_id": "ac993f4ba5cf0627ee253b7e0fa632008cc693c5",
+      "scene_id": "scene_00000"
+    },
+    {
+      "filename": "scans/scene_00001_00.zip",
+      "size_bytes": 801309467,
+      "repo_blob_id": "71948581a04dfedf396f96a9d68b6e2948e7b968",
+      "scene_id": "scene_00001"
+    },
+    {
+      "filename": "scans/scene_00001_01.zip",
+      "size_bytes": 853563736,
+      "repo_blob_id": "92ce4e8fb2a78388b0258a3f767a52cbc3196b17",
+      "scene_id": "scene_00001"
+    },
+    {
+      "filename": "scans/scene_00002_00.zip",
+      "size_bytes": 660851705,
+      "repo_blob_id": "3b460298ef997e918c15866fa1a36112ec12dab2",
+      "scene_id": "scene_00002"
+    },
+    {
+      "filename": "scans/scene_00002_01.zip",
+      "size_bytes": 535221869,
+      "repo_blob_id": "789894f1af9a9574b7a7d47f8f7ea4686654f1f7",
+      "scene_id": "scene_00002"
+    },
+    {
+      "filename": "scans/scene_00004_00.zip",
+      "size_bytes": 1468434639,
+      "repo_blob_id": "b59cc020fcd847c648556cfb82d3b53475ec8783",
+      "scene_id": "scene_00004"
+    },
+    {
+      "filename": "scans/scene_00004_01.zip",
+      "size_bytes": 1738691070,
+      "repo_blob_id": "41f9060b6e9c381a3748f5ed59d8008b88eedb14",
+      "scene_id": "scene_00004"
+    },
+    {
+      "filename": "scans/scene_00005_00.zip",
+      "size_bytes": 909899135,
+      "repo_blob_id": "903fdc03115b329ff66bef38e8e93ac3fcbd1654",
+      "scene_id": "scene_00005"
+    },
+    {
+      "filename": "scans/scene_00005_01.zip",
+      "size_bytes": 830779139,
+      "repo_blob_id": "ee39b6051c11f7d8f92259c42971c4d4ce3bc426",
+      "scene_id": "scene_00005"
+    },
+    {
+      "filename": "scans/scene_00006_00.zip",
+      "size_bytes": 1366725627,
+      "repo_blob_id": "27d7b25efbf6fd63112c24bc2347337ddc13e6cb",
+      "scene_id": "scene_00006"
+    },
+    {
+      "filename": "scans/scene_00006_01.zip",
+      "size_bytes": 1293210146,
+      "repo_blob_id": "c2e298dff370574da24cf2d4879e1f37bbdfa6ec",
+      "scene_id": "scene_00006"
+    },
+    {
+      "filename": "scans/scene_00007_00.zip",
+      "size_bytes": 595544561,
+      "repo_blob_id": "db75a20c8fcb48846e90414237a8b99c0d9eb509",
+      "scene_id": "scene_00007"
+    },
+    {
+      "filename": "scans/scene_00007_01.zip",
+      "size_bytes": 745746104,
+      "repo_blob_id": "3fffcaeed6efbd4988bacb44756ab49fde1f5f0d",
+      "scene_id": "scene_00007"
+    },
+    {
+      "filename": "scans/scene_00008_00.zip",
+      "size_bytes": 1042351842,
+      "repo_blob_id": "b62234eec19e03d6124f77b38626e329649f2a11",
+      "scene_id": "scene_00008"
+    },
+    {
+      "filename": "scans/scene_00008_01.zip",
+      "size_bytes": 1003894404,
+      "repo_blob_id": "cbee4a3a9f16de205cae7cca2697805cb2a4b70b",
+      "scene_id": "scene_00008"
+    },
+    {
+      "filename": "scans/scene_00009_00.zip",
+      "size_bytes": 806614291,
+      "repo_blob_id": "cfa9ef87852231258d5e7ad0507b7d0a2fe7f7d4",
+      "scene_id": "scene_00009"
+    },
+    {
+      "filename": "scans/scene_00009_01.zip",
+      "size_bytes": 1211599638,
+      "repo_blob_id": "2533e2e322a29a052c4a1d45b29f59f6abbe2233",
+      "scene_id": "scene_00009"
+    },
+    {
+      "filename": "scans/scene_00010_00.zip",
+      "size_bytes": 661628258,
+      "repo_blob_id": "9c83ecb5d5def9e1145e70b982870a157d146f57",
+      "scene_id": "scene_00010"
+    },
+    {
+      "filename": "scans/scene_00010_01.zip",
+      "size_bytes": 729870248,
+      "repo_blob_id": "20ecbe4b2fd13764ed452b3e6ad252732f2c1044",
+      "scene_id": "scene_00010"
+    },
+    {
+      "filename": "scans/scene_00011_00.zip",
+      "size_bytes": 667772922,
+      "repo_blob_id": "496879ac74ebb9abc76647392fbfdcd0c3d2ec98",
+      "scene_id": "scene_00011"
+    },
+    {
+      "filename": "scans/scene_00011_01.zip",
+      "size_bytes": 556410822,
+      "repo_blob_id": "b512d95c643adcc65e79012c41f45618aa8a2c04",
+      "scene_id": "scene_00011"
+    },
+    {
+      "filename": "scans/scene_00013_00.zip",
+      "size_bytes": 2713035580,
+      "repo_blob_id": "74a30e829d35fbbd2e9bc6a4ee5fe6d7a61eb4c0",
+      "scene_id": "scene_00013"
+    },
+    {
+      "filename": "scans/scene_00013_01.zip",
+      "size_bytes": 2660824605,
+      "repo_blob_id": "70e184b3f4ae5ad4f29c00741d1cb104e2919705",
+      "scene_id": "scene_00013"
+    },
+    {
+      "filename": "scans/scene_00014_00.zip",
+      "size_bytes": 1512969802,
+      "repo_blob_id": "598003dd20cb656db85e6aba7ddb4b9a45f46127",
+      "scene_id": "scene_00014"
+    },
+    {
+      "filename": "scans/scene_00014_01.zip",
+      "size_bytes": 1667262231,
+      "repo_blob_id": "08aec17ad77a11dde99d9d98f3b886028707c54e",
+      "scene_id": "scene_00014"
+    },
+    {
+      "filename": "scans/scene_00015_00.zip",
+      "size_bytes": 1335905129,
+      "repo_blob_id": "224a9cad327864e95bd52a036be2f875da4fcf07",
+      "scene_id": "scene_00015"
+    },
+    {
+      "filename": "scans/scene_00015_01.zip",
+      "size_bytes": 1113117432,
+      "repo_blob_id": "d7841d6594fbaaf118a40ec2c4b1a68bdfe62da5",
+      "scene_id": "scene_00015"
+    },
+    {
+      "filename": "scans/scene_00016_00.zip",
+      "size_bytes": 1679187205,
+      "repo_blob_id": "72ed918f5f1fa322ac2925798c877ce7b1477cc5",
+      "scene_id": "scene_00016"
+    },
+    {
+      "filename": "scans/scene_00016_01.zip",
+      "size_bytes": 1087716749,
+      "repo_blob_id": "69dc19c3dc8e5f796087bdd750926ad967d15ee0",
+      "scene_id": "scene_00016"
+    },
+    {
+      "filename": "scans/scene_00017_00.zip",
+      "size_bytes": 2307825808,
+      "repo_blob_id": "62d9a1503e70ea0c115d5f0b36d9055feb5676c1",
+      "scene_id": "scene_00017"
+    },
+    {
+      "filename": "scans/scene_00017_01.zip",
+      "size_bytes": 2278910870,
+      "repo_blob_id": "5a6243cb658ca60ff3b85b303aeb67794de3511c",
+      "scene_id": "scene_00017"
+    },
+    {
+      "filename": "scans/scene_00018_00.zip",
+      "size_bytes": 664556928,
+      "repo_blob_id": "1bb3c990ea7eb0c586be85ced12293daa0d3d630",
+      "scene_id": "scene_00018"
+    },
+    {
+      "filename": "scans/scene_00018_01.zip",
+      "size_bytes": 865235711,
+      "repo_blob_id": "89cc82a6fd182af64f11ff3bcd8395277883b69c",
+      "scene_id": "scene_00018"
+    }
+  ],
+  "frozen_at_utc": "2026-10-12T00:57:33.216239+00:00"
+}

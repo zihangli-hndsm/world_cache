@@ -1,0 +1,18 @@
+scene_id,scan_ids,reason
+scene_00003,scene_00003_00,no repeated scan; cannot form a rescan relation
+scene_00012,scene_00012_00,no repeated scan; cannot form a rescan relation
+scene_00032,scene_00032_00,no repeated scan; cannot form a rescan relation
+scene_00033,scene_00033_00,no repeated scan; cannot form a rescan relation
+scene_00038,scene_00038_00,no repeated scan; cannot form a rescan relation
+scene_00041,scene_00041_00,no repeated scan; cannot form a rescan relation
+scene_00054,scene_00054_00,no repeated scan; cannot form a rescan relation
+scene_00059,scene_00059_00,no repeated scan; cannot form a rescan relation
+scene_00067,scene_00067_00,no repeated scan; cannot form a rescan relation
+scene_00068,scene_00068_00,no repeated scan; cannot form a rescan relation
+scene_00069,scene_00069_00;scene_00069_01;scene_00069_02,used in projection debugging/pilot; excluded from independent scoring before this evaluation
+scene_00072,scene_00072_00,no repeated scan; cannot form a rescan relation
+scene_00073,scene_00073_00,no repeated scan; cannot form a rescan relation
+scene_00079,scene_00079_00,no repeated scan; cannot form a rescan relation
+scene_00081,scene_00081_00,no repeated scan; cannot form a rescan relation
+scene_00082,scene_00082_00,no repeated scan; cannot form a rescan relation
+scene_00085,scene_00085_00,no repeated scan; cannot form a rescan relation

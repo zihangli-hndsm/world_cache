@@ -1,0 +1,62 @@
+{
+  "status": "complete",
+  "created_utc": "2026-10-04T02:22:37.190011+00:00",
+  "input": "outputs/reports/20261003_vitg_validation/aggregate/per_environment.csv",
+  "posthoc_exclusions_from_geometry_overlap_screen": [
+    "4fbad31e-465b-2a5d-84b7-c0ddea978db4",
+    "c7895f7c-339c-2d13-819f-3bb0b26c91f6"
+  ],
+  "environments": 45,
+  "relations": 105,
+  "bootstrap_samples": 20000,
+  "bootstrap_seed": 271828,
+  "ViT-G_environment_macro_coverage": 0.15757837654933696,
+  "FCGF_environment_macro_coverage": 0.033722977696552026,
+  "ViT-G_minus_FCGF_coverage_difference": 0.12385539885278492,
+  "difference_ci95": [
+    0.08953677934205162,
+    0.16278140702694324
+  ],
+  "ViT-G_strict_pose_successes": 2,
+  "FCGF_strict_pose_successes": 0,
+  "ViT-G_environment_macro_strict_pose_success": 0.022222222222222223,
+  "FCGF_environment_macro_strict_pose_success": 0.0,
+  "strict_pose_environment_macro_difference": 0.022222222222222223,
+  "strict_pose_environment_macro_difference_ci95": [
+    0.0,
+    0.05555555555555555
+  ],
+  "environment_win_tie_loss": {
+    "wins": 43,
+    "ties": 0,
+    "losses": 2
+  },
+  "exhaustive_environment_removal_stress_test": {
+    "1": {
+      "combinations": 47,
+      "minimum_gap": 0.11366025742880527,
+      "minimum_gap_excluded_environments": [
+        "d7d40d4e-7a5d-2b36-97e7-34324c52ac42"
+      ],
+      "q05_gap": 0.1168849075321861,
+      "median_gap": 0.12286626199254504,
+      "positive_combinations": 47,
+      "ties": 0,
+      "negative_combinations": 0
+    },
+    "2": {
+      "combinations": 1081,
+      "minimum_gap": 0.1064469496091845,
+      "minimum_gap_excluded_environments": [
+        "d7d40d4e-7a5d-2b36-97e7-34324c52ac42",
+        "fcf66d7b-622d-291c-86b8-7db96aebcee3"
+      ],
+      "q05_gap": 0.11463489393772265,
+      "median_gap": 0.1232213807071447,
+      "positive_combinations": 1081,
+      "ties": 0,
+      "negative_combinations": 0
+    }
+  },
+  "interpretation": "Post-hoc sensitivity analysis only; excluding a flagged environment does not establish physical-site independence for the remaining split."
+}

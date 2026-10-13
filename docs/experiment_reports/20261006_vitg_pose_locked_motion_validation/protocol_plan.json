@@ -1,0 +1,29 @@
+{
+  "official_validation_relations": 110,
+  "official_validation_environments": 47,
+  "method": "global top-20 ViT-G pose locked; train-selected secondary rigid modes",
+  "train_only_selection": {
+    "modes": 4,
+    "margin_m": 0.15,
+    "min_independent_support": 32,
+    "training_relations": 16,
+    "seed": 17,
+    "source_artifact": "outputs/reports/20260929_multimotion_seed_robustness/seed_17/source_lopo_selection.csv"
+  },
+  "protocol": {
+    "layers": [
+      2,
+      20,
+      40
+    ],
+    "top_k": 20,
+    "threshold_m": 0.1,
+    "iterations": 1500,
+    "secondary_iterations": 1000,
+    "seed": 17
+  },
+  "validation_labels_used_for_selection": false,
+  "bootstrap_samples": 20000,
+  "bootstrap_unit": "environment",
+  "execution_requested": true
+}

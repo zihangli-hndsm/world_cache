@@ -1,0 +1,323 @@
+{
+  "environments": 47,
+  "relations": 110,
+  "bootstrap_unit": "official 3RScan environment; all rescans and relations from a sampled environment stay together",
+  "bootstrap_samples": 20000,
+  "seed": 10022026,
+  "arms": {
+    "FCGF": {
+      "counts": {
+        "queries": 106137,
+        "inliers": 12177,
+        "semantic_correct_inliers": 3511
+      },
+      "pooled_rates": {
+        "semantic_inlier_coverage": 0.033079887315450786,
+        "semantic_precision_among_inliers": 0.28833045906216637,
+        "inlier_coverage": 0.11472907657084712,
+        "strict_pose_success_environment_macro": 0.0
+      },
+      "environment_macro_rates_ci95": {
+        "semantic_inlier_coverage": {
+          "estimate": 0.03439236969440083,
+          "ci95": [
+            0.023676338676218073,
+            0.046182053362727966
+          ],
+          "environments": 47
+        },
+        "semantic_precision_among_inliers": {
+          "estimate": 0.3306286958031255,
+          "ci95": [
+            0.23902786580360752,
+            0.4266171043273002
+          ],
+          "environments": 47
+        },
+        "inlier_coverage": {
+          "estimate": 0.11323268825260467,
+          "ci95": [
+            0.09653928534721465,
+            0.13091140688778674
+          ],
+          "environments": 47
+        },
+        "strict_pose_success_environment_macro": {
+          "estimate": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "environments": 47
+        }
+      }
+    },
+    "FPFH mutual": {
+      "counts": {
+        "queries": 87258,
+        "inliers": 686,
+        "semantic_correct_inliers": 324
+      },
+      "pooled_rates": {
+        "semantic_inlier_coverage": 0.0037131265901120813,
+        "semantic_precision_among_inliers": 0.47230320699708456,
+        "inlier_coverage": 0.007861743335854592,
+        "strict_pose_success_environment_macro": 0.0
+      },
+      "environment_macro_rates_ci95": {
+        "semantic_inlier_coverage": {
+          "estimate": 0.0041326944850507774,
+          "ci95": [
+            0.0030702486933320236,
+            0.005290318035648333
+          ],
+          "environments": 47
+        },
+        "semantic_precision_among_inliers": {
+          "estimate": 0.4701602752295649,
+          "ci95": [
+            0.37134456213559847,
+            0.5705752178829939
+          ],
+          "environments": 47
+        },
+        "inlier_coverage": {
+          "estimate": 0.008016241306935684,
+          "ci95": [
+            0.0072151699246609195,
+            0.008884685142252801
+          ],
+          "environments": 47
+        },
+        "strict_pose_success_environment_macro": {
+          "estimate": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "environments": 47
+        }
+      }
+    },
+    "FPFH one-way": {
+      "counts": {
+        "queries": 87258,
+        "inliers": 2091,
+        "semantic_correct_inliers": 679
+      },
+      "pooled_rates": {
+        "semantic_inlier_coverage": 0.007781521465080566,
+        "semantic_precision_among_inliers": 0.3247250119560019,
+        "inlier_coverage": 0.023963418826927044,
+        "strict_pose_success_environment_macro": 0.0
+      },
+      "environment_macro_rates_ci95": {
+        "semantic_inlier_coverage": {
+          "estimate": 0.008766488990548773,
+          "ci95": [
+            0.006209492383181054,
+            0.011504156000434312
+          ],
+          "environments": 47
+        },
+        "semantic_precision_among_inliers": {
+          "estimate": 0.36025217536734166,
+          "ci95": [
+            0.2696197759143011,
+            0.45540424983299116
+          ],
+          "environments": 47
+        },
+        "inlier_coverage": {
+          "estimate": 0.024529388448616286,
+          "ci95": [
+            0.02193248071322124,
+            0.027249575722391187
+          ],
+          "environments": 47
+        },
+        "strict_pose_success_environment_macro": {
+          "estimate": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "environments": 47
+        }
+      }
+    },
+    "ViT-G": {
+      "counts": {
+        "queries": 106138,
+        "inliers": 20003,
+        "semantic_correct_inliers": 15296
+      },
+      "pooled_rates": {
+        "semantic_inlier_coverage": 0.1441142663325105,
+        "semantic_precision_among_inliers": 0.7646852972054192,
+        "inlier_coverage": 0.18846219073281953,
+        "physical_candidate_recall": 0.5637592775475713,
+        "physical_inlier_coverage": 0.1300638356359638,
+        "physical_precision_among_inliers": 0.6831916145248409,
+        "strict_pose_success_environment_macro": 0.02127659574468085
+      },
+      "environment_macro_rates_ci95": {
+        "semantic_inlier_coverage": {
+          "estimate": 0.15643186222255112,
+          "ci95": [
+            0.12005797875995,
+            0.1969510773258834
+          ],
+          "environments": 47
+        },
+        "semantic_precision_among_inliers": {
+          "estimate": 0.7608071921360784,
+          "ci95": [
+            0.6782111498246691,
+            0.8344076380190135
+          ],
+          "environments": 47
+        },
+        "inlier_coverage": {
+          "estimate": 0.19399177902448356,
+          "ci95": [
+            0.15858936228886536,
+            0.23290861463482104
+          ],
+          "environments": 47
+        },
+        "strict_pose_success_environment_macro": {
+          "estimate": 0.02127659574468085,
+          "ci95": [
+            0.0,
+            0.05319148936170213
+          ],
+          "environments": 47
+        },
+        "physical_candidate_recall": {
+          "estimate": 0.627646376011985,
+          "ci95": [
+            0.5543290204250506,
+            0.6996751223189045
+          ],
+          "environments": 47
+        },
+        "physical_inlier_coverage": {
+          "estimate": 0.1393979367335251,
+          "ci95": [
+            0.10113269632104464,
+            0.1809840576441957
+          ],
+          "environments": 47
+        },
+        "physical_precision_among_inliers": {
+          "estimate": 0.644857910524518,
+          "ci95": [
+            0.537557809533254,
+            0.7455227138532534
+          ],
+          "environments": 47
+        }
+      }
+    }
+  },
+  "paired_environment_macro_deltas": {
+    "ViT-G_minus_FPFH one-way:semantic_inlier_coverage": {
+      "estimate": 0.1476653732320023,
+      "ci95": [
+        0.11212596781915923,
+        0.18697564356485064
+      ],
+      "environments": 47
+    },
+    "ViT-G_minus_FPFH one-way:semantic_precision_among_inliers": {
+      "estimate": 0.4005550167687369,
+      "ci95": [
+        0.31309841197781657,
+        0.4884873771745113
+      ],
+      "environments": 47
+    },
+    "ViT-G_minus_FPFH one-way:inlier_coverage": {
+      "estimate": 0.16946239057586734,
+      "ci95": [
+        0.13540558570741884,
+        0.20733066095761787
+      ],
+      "environments": 47
+    },
+    "ViT-G_minus_FPFH one-way:strict_pose_success": {
+      "estimate": 0.02127659574468085,
+      "ci95": [
+        0.0,
+        0.05319148936170213
+      ],
+      "environments": 47
+    },
+    "ViT-G_minus_FPFH mutual:semantic_inlier_coverage": {
+      "estimate": 0.15229916773750032,
+      "ci95": [
+        0.11691339885313982,
+        0.19232536657890348
+      ],
+      "environments": 47
+    },
+    "ViT-G_minus_FPFH mutual:semantic_precision_among_inliers": {
+      "estimate": 0.29064691690651373,
+      "ci95": [
+        0.19628577497612756,
+        0.3864408375742232
+      ],
+      "environments": 47
+    },
+    "ViT-G_minus_FPFH mutual:inlier_coverage": {
+      "estimate": 0.18597553771754793,
+      "ci95": [
+        0.15126414003223596,
+        0.2237763806155308
+      ],
+      "environments": 47
+    },
+    "ViT-G_minus_FPFH mutual:strict_pose_success": {
+      "estimate": 0.02127659574468085,
+      "ci95": [
+        0.0,
+        0.05319148936170213
+      ],
+      "environments": 47
+    },
+    "ViT-G_minus_FCGF:semantic_inlier_coverage": {
+      "estimate": 0.12203949252815029,
+      "ci95": [
+        0.08816720782907023,
+        0.1591029387196428
+      ],
+      "environments": 47
+    },
+    "ViT-G_minus_FCGF:semantic_precision_among_inliers": {
+      "estimate": 0.4301784963329529,
+      "ci95": [
+        0.3315582393537806,
+        0.5303905544653605
+      ],
+      "environments": 47
+    },
+    "ViT-G_minus_FCGF:inlier_coverage": {
+      "estimate": 0.08075909077187893,
+      "ci95": [
+        0.04804969615776656,
+        0.11743378638263595
+      ],
+      "environments": 47
+    },
+    "ViT-G_minus_FCGF:strict_pose_success": {
+      "estimate": 0.02127659574468085,
+      "ci95": [
+        0.0,
+        0.05319148936170213
+      ],
+      "environments": 47
+    }
+  },
+  "inference_note": "Per-method query denominators differ for geometry baselines because their sampled point sets differ. Paired comparisons are environment-macro differences, not same-query paired effects."
+}

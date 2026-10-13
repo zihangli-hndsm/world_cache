@@ -1,0 +1,134 @@
+{
+  "unit": "environment_id",
+  "clusters": 17,
+  "draws": 10000,
+  "seed": 20261011,
+  "metrics": {
+    "query_identity_coverage": {
+      "estimate": 0.8805491727941178,
+      "ci95_percentile": [
+        0.8455534811580883,
+        0.9124428423713234
+      ]
+    },
+    "reference_identity_coverage": {
+      "estimate": 0.8793543198529411,
+      "ci95_percentile": [
+        0.8406927849264706,
+        0.9142928538602941
+      ]
+    },
+    "dino_semantic_recall_at20": {
+      "estimate": 0.8284811580882352,
+      "ci95_percentile": [
+        0.7940481387867646,
+        0.8607430491727942
+      ]
+    },
+    "dino_physical_instance_recall_at20": {
+      "estimate": 0.7905101102941177,
+      "ci95_percentile": [
+        0.7499882238051471,
+        0.8282631548713235
+      ]
+    },
+    "rgb_semantic_recall_at20": {
+      "estimate": 0.6892807904411765,
+      "ci95_percentile": [
+        0.6550542853860294,
+        0.7219913258272059
+      ]
+    },
+    "rgb_physical_instance_recall_at20": {
+      "estimate": 0.6012752757352942,
+      "ci95_percentile": [
+        0.5635564108455882,
+        0.6382953239889707
+      ]
+    },
+    "dino_accepted_query_coverage": {
+      "estimate": 0.35409007352941174,
+      "ci95_percentile": [
+        0.2920714613970588,
+        0.41163947610294116
+      ]
+    },
+    "dino_accepted_physical_instance_precision": {
+      "estimate": 0.7783525718115186,
+      "ci95_percentile": [
+        0.7407267968677093,
+        0.8136269464818473
+      ]
+    },
+    "dino_correct_accepted_query_coverage": {
+      "estimate": 0.27481617647058826,
+      "ci95_percentile": [
+        0.2250677849264706,
+        0.32146168428308824
+      ]
+    },
+    "rgb_accepted_query_coverage": {
+      "estimate": 0.030457261029411768,
+      "ci95_percentile": [
+        0.02341452205882353,
+        0.0387066291360294
+      ]
+    },
+    "rgb_accepted_physical_instance_precision": {
+      "estimate": 0.748389751164813,
+      "ci95_percentile": [
+        0.6930966773828986,
+        0.8001897332219071
+      ]
+    },
+    "rgb_correct_accepted_query_coverage": {
+      "estimate": 0.022667738970588238,
+      "ci95_percentile": [
+        0.017428481158088233,
+        0.028504423253676466
+      ]
+    },
+    "dino_semantic_minus_physical_pp": {
+      "estimate": 3.7971047794117645,
+      "ci95_percentile": [
+        2.640107996323529,
+        5.031048943014704
+      ]
+    },
+    "rgb_semantic_minus_physical_pp": {
+      "estimate": 8.800551470588236,
+      "ci95_percentile": [
+        7.27817670036765,
+        10.453814338235293
+      ]
+    },
+    "dino_minus_rgb_semantic_recall_pp": {
+      "estimate": 13.920036764705882,
+      "ci95_percentile": [
+        12.760799632352942,
+        15.070082720588232
+      ]
+    },
+    "dino_minus_rgb_physical_recall_pp": {
+      "estimate": 18.92348345588235,
+      "ci95_percentile": [
+        17.24379595588235,
+        20.610121783088236
+      ]
+    },
+    "dino_minus_rgb_instance_precision_pp": {
+      "estimate": 2.9962820646705564,
+      "ci95_percentile": [
+        -1.019677341429818,
+        6.587026897798246
+      ]
+    },
+    "dino_minus_rgb_correct_coverage_pp": {
+      "estimate": 25.21484375,
+      "ci95_percentile": [
+        20.599666819852942,
+        29.656709558823525
+      ]
+    }
+  }
+}

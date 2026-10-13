@@ -1,0 +1,30 @@
+{
+  "status": "complete",
+  "posthoc": true,
+  "relations": 110,
+  "environments": 47,
+  "environments_with_evaluable_queries": 47,
+  "matched_physical_evaluable_queries": 98221,
+  "pooled_semantic_candidate_recall": 0.7295486708545016,
+  "pooled_physical_candidate_recall": 0.5637592775475713,
+  "pooled_semantic_minus_physical_pp": 16.578939330693032,
+  "pooled_both_candidate_rate": 0.5637592775475713,
+  "pooled_semantic_only_candidate_rate": 0.1657893933069303,
+  "pooled_physical_only_candidate_rate": 0.0,
+  "pooled_neither_candidate_rate": 0.2704513291454984,
+  "environment_macro_semantic_candidate_recall": 0.776686854988281,
+  "environment_macro_physical_candidate_recall": 0.627646376011985,
+  "environment_macro_gap_pp": 14.904047897629608,
+  "environment_macro_semantic_only_candidate_rate": 0.14904047897629605,
+  "environment_bootstrap_95ci_gap_pp": [
+    10.040087098741724,
+    20.33889734070219
+  ],
+  "environments_semantic_higher": 43,
+  "environments_tied": 4,
+  "environments_physical_higher": 0,
+  "bootstrap_samples": 20000,
+  "bootstrap_seed": 10042026,
+  "bootstrap_unit": "environment; all relations within an environment stay grouped",
+  "matched_denominator": "queries with an unambiguous mapped physical objectId; semantic and physical hit scored on the identical top-20 candidate set"
+}

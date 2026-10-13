@@ -46,14 +46,19 @@ PYTHONPATH=scripts python scripts/download_3rscan_validation.py \
 ```
 
 Other external inputs and access notes are listed in [`DATASETS.md`](DATASETS.md).
-No dataset payloads, checkpoints, or experiment caches are included.
+No dataset payloads, checkpoints, or experiment caches are included. Selected
+follow-up reports, aggregate metrics, and documented limitations are indexed
+in [`docs/experiment_reports/`](docs/experiment_reports/README.md). Those later
+evidence snapshots are not all part of the paper version in `paper/`; each
+report states its own protocol and exploratory scope.
 
 ## Layout and license
 
 - `src/worldcache/`: reusable geometry, backbone, retrieval, and cache modules;
 - `scripts/`: evaluators, audits, aggregation, and data helpers;
 - `tests/`: unit and protocol regression tests;
-- `paper/`: paper snapshot, figures, and generated tables.
+- `paper/`: paper snapshot, figures, and generated tables;
+- `docs/experiment_reports/`: selected milestones, aggregate evidence, and limitations.
 
 WorldCache-authored code is MIT-licensed. Dataset utilities, datasets, model
 weights, and optional upstream baselines retain their own terms. See

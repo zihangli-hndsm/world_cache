@@ -1,0 +1,27 @@
+{
+  "dataset_revision": "c62c9aad850a8638ac3e42605926a65707600125",
+  "subset_manifest": "../quota_subset_manifest.json",
+  "environment_count": 17,
+  "relation_count": 17,
+  "query_count": 87040,
+  "mean_query_identity_coverage": 0.8805491727941178,
+  "environment_macro_metrics": {
+    "query_identity_coverage": 0.8805491727941178,
+    "reference_identity_coverage": 0.8793543198529411,
+    "dino_semantic_recall_at20": 0.8284811580882352,
+    "dino_physical_instance_recall_at20": 0.7905101102941177,
+    "rgb_semantic_recall_at20": 0.6892807904411765,
+    "rgb_physical_instance_recall_at20": 0.6012752757352942,
+    "dino_accepted_query_coverage": 0.35409007352941174,
+    "dino_accepted_physical_instance_precision": 0.7783525718115186,
+    "dino_correct_accepted_query_coverage": 0.27481617647058826,
+    "rgb_accepted_query_coverage": 0.030457261029411768,
+    "rgb_accepted_physical_instance_precision": 0.748389751164813,
+    "rgb_correct_accepted_query_coverage": 0.022667738970588238
+  },
+  "bootstrap": "10,000 environment-cluster resamples; seed 20261011",
+  "scoring_runtime_seconds": 38.64588834083406,
+  "statistics_bootstrap_runtime_seconds": 2.3087532359641045,
+  "scoring_command_wall_seconds": 42.75236645503901,
+  "label_access_timing": "only after all 17 relation prediction files were persisted"
+}
